@@ -26,7 +26,7 @@
         <!-- Insert new guest -->
         <span class="subtitle">Please choose from below</span>
 
-        <form id="searchForm" th:action="@{/search}" th:object="${searchObject}"></form>
+        <form method="post" id="searchForm" th:action="@{/main/search}" th:object="${searchObject}">
         <ul>
             <li th:each="siteInfo : ${allSites}">
 
@@ -39,8 +39,10 @@
                 </div>
         </li>
         </ul>
-    </div>
+        <input type="submit" value="Process">
+        </form>
 
+    </div>
 
 
 

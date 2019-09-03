@@ -26,18 +26,18 @@ public class Site {
         this.url = url;
     }
 
-    public String getDesctription() {
-        return desctription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesctription(String desctription) {
-        this.desctription = desctription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     private Integer id;
     private String name;
     private String url;
-    private String desctription;
+    private String description;
 
     public Site() {
     }
@@ -46,6 +46,16 @@ public class Site {
         this.id = id;
         this.name = name;
         this.url = url;
-        this.desctription = desctription;
+        this.description = desctription;
+    }
+
+    @Override
+    public String toString() {
+        return "Site{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }
