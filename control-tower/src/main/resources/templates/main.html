@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>RPA Control Tower</title>
+    <meta charset="UTF-8"/>
+    <title>Thymeleaf Exemplo Com Spring e Ajax</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css" media="screen"/>
+    <script th:src="@{/js/jquery-min-3.4.1.js}" type="text/javascript"></script>
 </head>
+
 <body>
-<h1>Welcome</h1>
-<p th:text="${variable}">ENTER</p>
+<div style="width:800px; margin:0 auto;">
+
+    <h1>Welcome</h1>
+    <!--<p th:text="${variable}">ENTER</p>-->
+    <!--<form method="post" action="/search">-->
+    <!--<input type="checkbox" name="site 1" value="Bike"> I have a bike<br>-->
+    <!--<input type="checkbox" name="site 2" value="Car"> I have a car<br>-->
+    <!--<input type="checkbox" name="site 3" value="Boat" checked> I have a boat<br>-->
+    <!--<input type="submit" />-->
+    <!--</form>-->
+
+
+    <div class="main-block">
+        <!-- Insert new guest -->
+        <span class="subtitle">Please choose from below</span>
+
+        <form id="searchForm" th:action="@{/search}" th:object="${searchObject}"></form>
+        <ul>
+            <li th:each="siteInfo : ${allSites}">
+
+                <div class="insertBlock">
+                    <span class="formSpan">
+                        <input type="checkbox" th:value="${siteInfo.id}">
+                        <label th:text="${siteInfo.name}"></label><br>
+
+                    </span>
+                </div>
+        </li>
+        </ul>
+    </div>
+
+
+
+
+
+        <!--<form id="searchForm" th:action="@{/search}" th:object="${searchObject}" method="post">-->
+            <!--<div class="insertBlock">-->
+            <!--<span class="formSpan">-->
+            <!--<input id="guestId" type="text" th:field="*{id}" required="required"/>-->
+            <!--<br />-->
+            <!--<label for="guestId" th:text="#{insert.id}">id:</label>-->
+            <!--</span>-->
+            <!--<span class="formSpan" style="margin-bottom:20px">-->
+            <!--<input id="guestName" type="text" th:field="*{name}" required="required"/>-->
+            <!--<br />-->
+            <!--<label for="guestName" th:text="#{insert.name}">name:</label>-->
+            <!--</span>-->
+
+            <!--<span class="formSpan">-->
+            <!--<input id="guestSurname" type="text" th:field="*{surname}" required="required"/>-->
+            <!--<br />-->
+            <!--<label for="guestSurname" th:text="#{insert.surname}">surname:</label>-->
+            <!--</span>-->
+            <!--<span class="formSpan" style="margin-bottom:20px">-->
+            <!--<input id="guestCountry" type="text" th:field="*{country}" required="required"/>-->
+            <!--<br />-->
+            <!--<label for="guestCountry" th:text="#{insert.country}">country:</label>-->
+            <!--</span>-->
+
+            <!--<input type="submit" value="add" th:value="#{insert.submit}"/>-->
+            <!--<span class="messageContainer" th:unless="${#strings.isEmpty(errorMessage)}" th:text="#{${errorMessage}}"></span>-->
+            <!--</div>-->
+            <!--</form>-->
+
+
+            <!--</div>-->
+
+        </div>
 </body>
 </html>
+
