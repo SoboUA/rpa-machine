@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.servlet.ModelAndView;
 import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
@@ -47,7 +48,9 @@ public class MainPageController {
 
     @PostMapping("/search")
     @ResponseBody
-    public String processInfo(@ModelAttribute SearchData searchData) {
+    public ModelAndView processInfo(@ModelAttribute SearchData searchData) {
+
+        tempDatastore.clear();
 
         System.out.println("here");
         System.out.println(searchData);
@@ -60,6 +63,11 @@ public class MainPageController {
             resultObjectMono.subscribe(e -> tempDatastore.append(e));
         });
 
-        return "main";
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("result");
+
+        System.out.println("In the end");
+
+        return modelAndView;
     }
 }

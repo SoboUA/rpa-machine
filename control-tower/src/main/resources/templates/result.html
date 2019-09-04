@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Spring MVC 4 + Ajax</title>
+
+    <script th:src="@{/js/jquery-min-3.4.1.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+
+</head>
+
+<form id="update-form">
+    <button type="submit" id="bth-update">Update</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+	jQuery(document).ready(function($) {
+
+		$("#update-form").submit(function(event) {
+
+			// Disable the search button
+			enableSearchButton(false);
+
+			// Prevent the form from submitting via the browser.
+			event.preventDefault();
+
+			searchViaAjax();
+
+		});
+
+	});
+
+	function searchViaAjax() {
+
+		$.ajax({
+			type : "POST",
+			contentType : "application/json",
+			url : "/search/api/getSearchResult",
+			dataType : 'json',
+			timeout : 100000,
+			success : function(data) {
+				console.log("SUCCESS: ", data);
+				display(data);
+			},
+			error : function(e) {
+				console.log("ERROR: ", e);
+				display(e);
+			},
+			done : function(e) {
+				console.log("DONE");
+				enableSearchButton(true);
+			}
+		});
+
+	}
+
+	function enableSearchButton(flag) {
+		$("#bth-update").prop("disabled", flag);
+	}
+
+	function display(data) {
+		var json = "<h4>Ajax Response</h4><pre>"
+				+ JSON.stringify(data, null, 4) + "</pre>";
+		$('#result').html(json);
+	}
+
+</script>
+
+</body>
+</html>
