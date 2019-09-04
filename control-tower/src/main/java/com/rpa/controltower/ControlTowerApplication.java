@@ -11,8 +11,8 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class ControlTowerApplication {
 
 	@Bean
-	public WebClient.Builder getWebClientBuilder(){
-		return WebClient.builder();
+	public WebClient getWebClient(){
+		return WebClient.create();
 	}
 
 	public static void main(String[] args) {

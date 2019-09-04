@@ -4,21 +4,21 @@ import java.util.List;
 
 public class CTRequestData {
 
-    private List<SearchData> data;
+    private List<SiteData> data;
 
     public CTRequestData() {
 
     }
 
-    public CTRequestData(List<SearchData> data) {
+    public CTRequestData(List<SiteData> data) {
         this.data = data;
     }
 
-    public List<SearchData> getData() {
+    public List<SiteData> getData() {
         return data;
     }
 
-    public void setData(List<SearchData> data) {
+    public void setData(List<SiteData> data) {
         this.data = data;
     }
 }

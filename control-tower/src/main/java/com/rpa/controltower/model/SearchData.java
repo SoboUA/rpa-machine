@@ -7,14 +7,18 @@ import java.util.List;
 
 public class SearchData {
 
-
     private List<String> sites;
     private boolean sendEmail;
     private String simpleText;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateFrom;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateTo;
+
     public SearchData() {
     }
-
 
     public Date getDateFrom() {
         return dateFrom;
@@ -40,13 +44,6 @@ public class SearchData {
         this.dateTo = dateTo;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateFrom;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateTo;
-
-
     public String getSimpleText() {
         return simpleText;
     }
@@ -55,8 +52,6 @@ public class SearchData {
         this.simpleText = simpleText;
     }
 
-
-
     public boolean isSendEmail() {
         return sendEmail;
     }
@@ -64,8 +59,6 @@ public class SearchData {
     public void setSendEmail(boolean sendEmail) {
         this.sendEmail = sendEmail;
     }
-
-
 
     @Override
     public String toString() {
