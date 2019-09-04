@@ -1,33 +1,61 @@
 package com.rpa.controltower.model;
 
-import com.rpa.controltower.model.ui.Site;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
 import java.util.List;
 
 public class SearchData {
 
-    private Site site;
-    private List<String> filters;
+
+    private List<String> sites;
     private boolean sendEmail;
+    private String simpleText;
 
     public SearchData() {
     }
 
-    public Site getSite() {
-        return site;
+
+    public Date getDateFrom() {
+        return dateFrom;
     }
 
-    public void setSite(Site site) {
-        this.site = site;
+    public List<String> getSites() {
+        return sites;
     }
 
-    public List<String> getFilters() {
-        return filters;
+    public void setSites(List<String> sites) {
+        this.sites = sites;
     }
 
-    public void setFilters(List<String> filters) {
-        this.filters = filters;
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
     }
+
+    public Date getDateTo() {
+        return dateTo;
+    }
+
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
+    }
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateFrom;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateTo;
+
+
+    public String getSimpleText() {
+        return simpleText;
+    }
+
+    public void setSimpleText(String simpleText) {
+        this.simpleText = simpleText;
+    }
+
+
 
     public boolean isSendEmail() {
         return sendEmail;
@@ -37,9 +65,16 @@ public class SearchData {
         this.sendEmail = sendEmail;
     }
 
-    public SearchData(Site site, List<String> filters, boolean sendEmail) {
-        this.site = site;
-        this.filters = filters;
-        this.sendEmail = sendEmail;
+
+
+    @Override
+    public String toString() {
+        return "SearchData{" +
+                "sites=" + sites +
+                ", sendEmail=" + sendEmail +
+                ", simpleText='" + simpleText + '\'' +
+                ", dateFrom=" + dateFrom +
+                ", dateTo=" + dateTo +
+                '}';
     }
 }

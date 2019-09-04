@@ -26,60 +26,74 @@
         <!-- Insert new guest -->
         <span class="subtitle">Please choose from below</span>
 
-        <form method="post" id="searchForm" th:action="@{/main/search}" th:object="${searchObject}">
-        <ul>
-            <li th:each="siteInfo : ${allSites}">
+        <form method="post" id="searchForm" th:action="@{/main/search}" th:object="${resultData}">
+            <ul>
+                <li th:each="siteInfo,itemStat : ${allSites}">
 
-                <div class="insertBlock">
+                    <div class="insertBlock">
                     <span class="formSpan">
-                        <input type="checkbox" th:value="${siteInfo.id}">
+                        <input type="checkbox" th:value="${siteInfo.name}" th:field="${resultData.sites[__${itemStat.index}__]}">
                         <label th:text="${siteInfo.name}"></label><br>
 
                     </span>
-                </div>
-        </li>
-        </ul>
-        <input type="submit" value="Process">
+                    </div>
+                </li>
+            </ul>
+
+
+            <span class="formSpan" style="margin-bottom:20px">-->
+                <label for="dateFrom" >Insert Date</label>
+                <input id="dateFrom" type="date" th:field="${resultData.dateFrom}"/>
+                </span>
+
+            <span class="formSpan" style="margin-bottom:20px">-->
+                <label for="dateTo" >Insert Date</label>
+                <input id="dateTo" type="date" th:field="${resultData.dateTo}" />
+                </span>
+
+            <span class="formSpan" style="margin-bottom:20px">-->
+                <label for="simpl" >Insert Text</label>
+                <input id="simpl" type="text" th:field="${resultData.simpleText}" required="required"/>
+                </span>
+            <input type="submit" value="Search">
         </form>
 
     </div>
 
 
+    <!--<form id="searchForm" th:action="@{/search}" th:object="${searchObject}" method="post">-->
+    <!--<div class="insertBlock">-->
+    <!--<span class="formSpan">-->
+    <!--<input id="guestId" type="text" th:field="*{id}" required="required"/>-->
+    <!--<br />-->
+    <!--<label for="guestId" th:text="#{insert.id}">id:</label>-->
+    <!--</span>-->
+    <!--<span class="formSpan" style="margin-bottom:20px">-->
+    <!--<input id="guestName" type="text" th:field="*{name}" required="required"/>-->
+    <!--<br />-->
+    <!--<label for="guestName" th:text="#{insert.name}">name:</label>-->
+    <!--</span>-->
+
+    <!--<span class="formSpan">-->
+    <!--<input id="guestSurname" type="text" th:field="*{surname}" required="required"/>-->
+    <!--<br />-->
+    <!--<label for="guestSurname" th:text="#{insert.surname}">surname:</label>-->
+    <!--</span>-->
+    <!--<span class="formSpan" style="margin-bottom:20px">-->
+    <!--<input id="guestCountry" type="text" th:field="*{country}" required="required"/>-->
+    <!--<br />-->
+    <!--<label for="guestCountry" th:text="#{insert.country}">country:</label>-->
+    <!--</span>-->
+
+    <!--<input type="submit" value="add" th:value="#{insert.submit}"/>-->
+    <!--<span class="messageContainer" th:unless="${#strings.isEmpty(errorMessage)}" th:text="#{${errorMessage}}"></span>-->
+    <!--</div>-->
+    <!--</form>-->
 
 
-        <!--<form id="searchForm" th:action="@{/search}" th:object="${searchObject}" method="post">-->
-            <!--<div class="insertBlock">-->
-            <!--<span class="formSpan">-->
-            <!--<input id="guestId" type="text" th:field="*{id}" required="required"/>-->
-            <!--<br />-->
-            <!--<label for="guestId" th:text="#{insert.id}">id:</label>-->
-            <!--</span>-->
-            <!--<span class="formSpan" style="margin-bottom:20px">-->
-            <!--<input id="guestName" type="text" th:field="*{name}" required="required"/>-->
-            <!--<br />-->
-            <!--<label for="guestName" th:text="#{insert.name}">name:</label>-->
-            <!--</span>-->
+    <!--</div>-->
 
-            <!--<span class="formSpan">-->
-            <!--<input id="guestSurname" type="text" th:field="*{surname}" required="required"/>-->
-            <!--<br />-->
-            <!--<label for="guestSurname" th:text="#{insert.surname}">surname:</label>-->
-            <!--</span>-->
-            <!--<span class="formSpan" style="margin-bottom:20px">-->
-            <!--<input id="guestCountry" type="text" th:field="*{country}" required="required"/>-->
-            <!--<br />-->
-            <!--<label for="guestCountry" th:text="#{insert.country}">country:</label>-->
-            <!--</span>-->
-
-            <!--<input type="submit" value="add" th:value="#{insert.submit}"/>-->
-            <!--<span class="messageContainer" th:unless="${#strings.isEmpty(errorMessage)}" th:text="#{${errorMessage}}"></span>-->
-            <!--</div>-->
-            <!--</form>-->
-
-
-            <!--</div>-->
-
-        </div>
+</div>
 </body>
 </html>
 
