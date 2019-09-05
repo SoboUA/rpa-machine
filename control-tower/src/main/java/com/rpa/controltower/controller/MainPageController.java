@@ -58,7 +58,7 @@ public class MainPageController {
         CTRequestData requestData = new DataConverter().toRequestData(searchData);
 
         requestData.getData().forEach(body -> {
-            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.GET).uri("http://localhost:8090/easy/send").body(BodyInserters.fromObject(body));
+            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.GET).uri("http://localhost:8082/processEvents").body(BodyInserters.fromObject(body));
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
             resultObjectMono.subscribe(e -> tempDatastore.append(e));
         });

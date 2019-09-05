@@ -4,9 +4,12 @@ import com.epam.rpa.hackathon.util.JsonUtil;
 import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.IGetEventsAction;
 import org.openqa.selenium.WebDriver;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class GetLvivOnlineEventsAction implements IGetEventsAction {
 
     @Override

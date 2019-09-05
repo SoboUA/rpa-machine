@@ -27,8 +27,10 @@ public class LvivOnlineHomePage extends LvivOnlinePage {
     public AllEventsPage goToAllEventsPage() {
         try {
             eventsSubMenu.click();
-            Thread.sleep(100);
+            Thread.sleep(1000);
+
             allEvents.click();
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
