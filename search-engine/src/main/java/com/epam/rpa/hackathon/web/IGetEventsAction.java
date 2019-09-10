@@ -7,6 +7,7 @@ import java.util.List;
 public interface IGetEventsAction {
 
     List<? extends IEvent> getEvents();
+//    List getEvents();
 
     String getEventsJson();
 

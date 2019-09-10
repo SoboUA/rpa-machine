@@ -24,7 +24,7 @@ public class TempDatastore {
 
     public void clear(){
         int size = resultObjects.size();
-        System.out.println("Cleaned " + size + " records");
         resultObjects.clear();
+        System.out.println("Cleaned " + size + " records");
     }
 }

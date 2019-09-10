@@ -2,15 +2,14 @@ package com.rpa.controltower.controller;
 
 import com.rpa.controltower.converter.DataConverter;
 import com.rpa.controltower.datastore.TempDatastore;
-import com.rpa.controltower.model.CTRequestData;
-import com.rpa.controltower.model.ResultObject;
-import com.rpa.controltower.model.SearchData;
+import com.rpa.controltower.model.*;
 import com.rpa.controltower.model.ui.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +28,12 @@ public class MainPageController {
 
     @Autowired
     WebClient webClient;
+
+    @Autowired
+    WebClient.Builder webClientBuilder;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @GetMapping("/search")
     public String getInfo(Model model) {
@@ -53,12 +58,14 @@ public class MainPageController {
         tempDatastore.clear();
 
         System.out.println("here");
-        System.out.println(searchData);
+        System.out.println("search data: " + searchData);
 
         CTRequestData requestData = new DataConverter().toRequestData(searchData);
 
+        System.out.println("requestData.getData(): " + requestData.getData());
+
         requestData.getData().forEach(body -> {
-            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.GET).uri("http://localhost:8082/processEvents").body(BodyInserters.fromObject(body));
+            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST).uri("http://localhost:8082/processEvents").body(BodyInserters.fromObject(body));
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
             resultObjectMono.subscribe(e -> tempDatastore.append(e));
         });
