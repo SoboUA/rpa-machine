@@ -18,6 +18,10 @@ public class TempDatastore {
         resultObjects.add(resultObject);
     }
 
+    public void  appendList(List<ResultObject> resultObjects){
+        this.resultObjects = resultObjects;
+    }
+
     public List<ResultObject> getResultObjects() {
         return resultObjects;
     }
@@ -26,5 +30,12 @@ public class TempDatastore {
         int size = resultObjects.size();
         resultObjects.clear();
         System.out.println("Cleaned " + size + " records");
+    }
+
+    @Override
+    public String toString() {
+        return "TempDatastore{" +
+                "resultObjects=" + resultObjects +
+                '}';
     }
 }
