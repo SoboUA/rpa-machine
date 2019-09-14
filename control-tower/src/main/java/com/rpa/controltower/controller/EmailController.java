@@ -16,8 +16,8 @@ import java.io.IOException;
 @Component
 public class EmailController {
 
-    @Autowired
-    JavaMailSender javaMailSender;
+//    @Autowired
+//    JavaMailSender javaMailSender;
 
     public void sendEmail(String to, Workbook workbook){
 //        ByteArrayOutputStream bos = new ByteArrayOutputStream();

@@ -41,7 +41,6 @@ import static com.rpa.controltower.model.Category.*;
 @RequestMapping("main")
 public class MainPageController {
 
-
     @Autowired
     @LoadBalanced
     WebClient webClient;
@@ -57,8 +56,34 @@ public class MainPageController {
     private RestTemplate restTemplate;
 
 
+//    @GetMapping("/search")
+//    public String getInfo(Model model) {
+//        ScrappingFormData data = new ScrappingFormData();
+//        HashMap<Category, String> categoryMap = new HashMap<>();
+//        categoryMap.put(CONCERTS, "Концерти");
+//        categoryMap.put(CONFERENCEC, "Конференції");
+//        categoryMap.put(EXHIBITIONS, "Виставки");
+//        categoryMap.put(FESTIVAL, "Фестивалі");
+//        categoryMap.put(OTHER, "Інше");
+//        List<Site> allSites = Arrays.asList(
+////                new Site("lvivInfo", "LvivOnline", "https://lviv-online.com/ua/", categoryMap),
+////                new Site("gastroli", "Gastroli", "https://gastroli.ua/en/Lviv", categoryMap),
+////                new Site("philarmonia", "Philarmonia", "https://philharmonia.lviv.ua/events/", categoryMap),
+////                new Site("ticketClub", "TicketClub", "https://ticketclub.com.ua/?ct=1", categoryMap));
+//                new Site(1, "LvivOnline", "https://lviv-online.com/ua/", categoryMap),
+//                new Site(2, "Gastroli", "https://gastroli.ua/en/Lviv", categoryMap),
+//                new Site(3, "Philarmonia", "https://philharmonia.lviv.ua/events/", categoryMap),
+//                new Site(4, "TicketClub", "https://ticketclub.com.ua/?ct=1", categoryMap));
+//
+//        data.setOutputSites(allSites);
+//        model.addAttribute("allSites", data);
+//        model.addAttribute("resultData", new SearchData());
+//        return "index";
+//    }
+
+
     @GetMapping("/search")
-    public String getInfo(Model model) {
+    public String vikFront(Model model) {
         ScrappingFormData data = new ScrappingFormData();
         HashMap<Category, String> categoryMap = new HashMap<>();
         categoryMap.put(CONCERTS, "Концерти");
@@ -67,11 +92,10 @@ public class MainPageController {
         categoryMap.put(FESTIVAL, "Фестивалі");
         categoryMap.put(OTHER, "Інше");
         List<Site> allSites = Arrays.asList(
-                new Site("lvivInfo", "LvivOnline", "https://lviv-online.com/ua/", categoryMap),
-                new Site("gastroli", "Gastroli", "https://gastroli.ua/en/Lviv", categoryMap),
-                new Site("philarmonia", "Philarmonia", "https://philharmonia.lviv.ua/events/", categoryMap),
-                new Site("ticketClub", "TicketClub", "https://ticketclub.com.ua/?ct=1", categoryMap));
-
+                new Site(1, "LvivOnline", "https://lviv-online.com/ua/", categoryMap),
+                new Site(2, "Gastroli", "https://gastroli.ua/en/Lviv", categoryMap),
+                new Site(3, "Philarmonia", "https://philharmonia.lviv.ua/events/", categoryMap),
+                new Site(4, "TicketClub", "https://ticketclub.com.ua/?ct=1", categoryMap));
         data.setOutputSites(allSites);
         model.addAttribute("allSites", data);
         model.addAttribute("resultData", new SearchData());
@@ -108,7 +132,7 @@ public class MainPageController {
                 tempDatastore.append(e);
                 if (data.size() == tempDatastore.getSize()) {
                     System.out.println("INTO for");
-                    System.out.println("data size: "+ data.size());
+                    System.out.println("data size: " + data.size());
                     int size = tempDatastore.getResultObjects().size();
                     System.out.println("size: " + size);
 
@@ -196,7 +220,7 @@ public class MainPageController {
         List<ResultObject> resultObjects = datastores.getResultObjects();
 
         Workbook xssfWorkbook = new XSSFWorkbook();
-        return  new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
+        return new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
 
         //method();
     }

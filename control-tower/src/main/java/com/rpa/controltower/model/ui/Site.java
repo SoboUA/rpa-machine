@@ -7,6 +7,16 @@ import java.util.Map;
 
 public class Site {
 
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    private  Integer number;
+
     public String getId() {
         return id;
     }
@@ -69,6 +79,12 @@ public class Site {
 
     public Site(String id, String name, String url, Map<Category,String> categories) {
         this.id = id;
+        this.name = name;
+        this.url = url;
+        this.category = categories;
+    }
+    public Site(Integer id, String name, String url, Map<Category,String> categories) {
+        this.number = id;
         this.name = name;
         this.url = url;
         this.category = categories;
