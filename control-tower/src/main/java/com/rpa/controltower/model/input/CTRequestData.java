@@ -1,4 +1,4 @@
-package com.rpa.controltower.model;
+package com.rpa.controltower.model.input;
 
 import java.util.List;
 

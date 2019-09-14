@@ -15,7 +15,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class ControlTowerApplication {
 
     @Bean
-    public TempDatastore getTempDatastore(){return DatastoreFactory.create();}
+    public TempDatastore getTempDatastore() {
+        return DatastoreFactory.create();
+    }
 
     @Bean
     @LoadBalanced
@@ -31,7 +33,7 @@ public class ControlTowerApplication {
 
     @Bean
     @LoadBalanced
-    public RestTemplate getRestTemplate(){
+    public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
 
@@ -39,4 +41,44 @@ public class ControlTowerApplication {
         SpringApplication.run(ControlTowerApplication.class, args);
     }
 
+//    public static void main(String[] args) throws IOException {
+//        ResultObject resultObject = new ResultObject();
+//        ResultObject resultObject1 = new ResultObject();
+//        SiteData siteData = new SiteData();
+//        SiteData siteData2 = new SiteData();
+//        siteData.setSiteId("sheetName");
+//        resultObject.setSiteData(siteData);
+//        siteData2.setSiteId("sheetName22222");
+//        resultObject1.setSiteData(siteData2);
+//        List<IEvent> events = new ArrayList<>();
+//        IEvent event = new Event();
+//        event.setTitle("asdadas");
+//        event.setDescription("asdadas");
+//
+//
+//        IEvent event1 = new Event();
+//        event1.setTitle("asdaaaaaadas");
+//        event1.setDescription("asdaaaaadas");
+//        events.add(event);
+//        events.add(event1);
+//
+//        resultObject.setEventList(events);
+//        resultObject1.setEventList(events);
+//
+//        Workbook xssfWorkbook = new XSSFWorkbook();
+//        Workbook workbook = new ExcelConverter()
+//                .fillWorkbook(xssfWorkbook, Arrays.asList(resultObject, resultObject1));
+//
+//        new ExcelStyle().setStyle(workbook);
+//
+//
+//        FileOutputStream out = new FileOutputStream("C:\\Users\\Roman_Sobolevskyi\\Desktop\\newFile23234.xlsx");
+//
+//        workbook.write(out);
+//        out.close();
+//
+//
+//    }
+
+    ;
 }

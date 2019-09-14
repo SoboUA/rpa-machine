@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class Site {
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -51,7 +51,7 @@ public class Site {
 
 
 
-    private Integer id;
+    private String id;
     private String name;
     private String url;
     private String description;
@@ -61,13 +61,13 @@ public class Site {
     public Site() {
     }
 
-    public Site(Integer id,String name, String url) {
+    public Site(String id,String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
     }
 
-    public Site(Integer id, String name, String url, Map<Category,String> categories) {
+    public Site(String id, String name, String url, Map<Category,String> categories) {
         this.id = id;
         this.name = name;
         this.url = url;

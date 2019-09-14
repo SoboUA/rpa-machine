@@ -101,7 +101,7 @@ public class ExcelUtils {
     }
 
     private static boolean isCellBlank(Cell c) {
-        return (c == null || c.getCellType() == CellType.BLANK);
+        return (c == null || c.getCellType() == Cell.CELL_TYPE_BLANK);
     }
 
 

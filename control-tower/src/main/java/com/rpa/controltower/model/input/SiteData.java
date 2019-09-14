@@ -1,13 +1,16 @@
-package com.rpa.controltower.model;
+package com.rpa.controltower.model.input;
 
+import com.rpa.controltower.model.ui.Site;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 public class SiteData {
 
-    private String site;
-    private String simpleText;
+    private String siteId;
+    private String siteUrl;
+
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFrom;
@@ -19,26 +22,32 @@ public class SiteData {
     }
 
     public SiteData(String site, String simpleText, Date dateFrom, Date dateTo) {
-        this.site = site;
-        this.simpleText = simpleText;
+        this.siteId = site;
+        this.siteUrl = simpleText;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+    }
+    public SiteData(Site info,Date dateFrom,Date dateTo) {
+        this.siteId = info.getId();
+        this.siteUrl = info.getUrl();
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
     }
 
-    public String getSite() {
-        return site;
+    public String getSiteId() {
+        return siteId;
     }
 
-    public void setSite(String site) {
-        this.site = site;
+    public void setSiteId(String siteId) {
+        this.siteId = siteId;
     }
 
-    public String getSimpleText() {
-        return simpleText;
+    public String getSiteUrl() {
+        return siteUrl;
     }
 
-    public void setSimpleText(String simpleText) {
-        this.simpleText = simpleText;
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
     }
 
     public Date getDateFrom() {
@@ -60,8 +69,8 @@ public class SiteData {
     @Override
     public String toString() {
         return "SiteData{" +
-                "site='" + site + '\'' +
-                ", simpleText='" + simpleText + '\'' +
+                "siteId='" + siteId + '\'' +
+                ", siteUrl='" + siteUrl + '\'' +
                 ", dateFrom=" + dateFrom +
                 ", dateTo=" + dateTo +
                 '}';

@@ -1,17 +1,13 @@
 package com.rpa.controltower.model;
 
-import org.apache.commons.lang3.StringUtils;
+import com.rpa.controltower.model.input.SiteData;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ResultObject {
 
     private SiteData siteData;
-    private List<Event> eventList;
+    private List<IEvent> eventList;
 
 
     public ResultObject() {
@@ -36,11 +32,11 @@ public class ResultObject {
         this.siteData = siteData;
     }
 
-    public List<Event> getEventList() {
+    public List<IEvent> getEventList() {
         return eventList;
     }
 
-    public void setEventList(List<Event> eventList) {
+    public void setEventList(List<IEvent> eventList) {
         this.eventList = eventList;
     }
 

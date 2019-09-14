@@ -1,10 +1,16 @@
 package com.rpa.controltower.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rpa.controltower.converter.DataConverter;
+import com.rpa.controltower.converter.ExcelConverter;
 import com.rpa.controltower.datastore.TempDatastore;
 import com.rpa.controltower.model.*;
+import com.rpa.controltower.model.input.CTRequestData;
+import com.rpa.controltower.model.input.SiteData;
 import com.rpa.controltower.model.ui.ScrappingFormData;
 import com.rpa.controltower.model.ui.Site;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -27,10 +33,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.rpa.controltower.model.Category.*;
 
@@ -39,8 +41,6 @@ import static com.rpa.controltower.model.Category.*;
 @RequestMapping("main")
 public class MainPageController {
 
-    @Autowired
-    TempDatastore tempDatastore;
 
     @Autowired
     @LoadBalanced
@@ -56,52 +56,9 @@ public class MainPageController {
     @Autowired
     private RestTemplate restTemplate;
 
-//    @GetMapping("/searchOld")
-//    public String getOldInfo(Model model) {
-//
-//        //TODO Sobo make flexy
-//        List<Site> allSites = Arrays.asList(
-//                new Site(1, "lvivInfo", "lviv.com"),
-//                new Site(2, "touristLviv", "tourists.com"),
-//                new Site(3, "livandovkaLife", "gopnik.com")
-//        );
-//
-//
-//        model.addAttribute("allSites", allSites);
-//        model.addAttribute("resultData", new SearchData());
-//        return "main";
-//    }
-//
-//    @GetMapping("/search")
-//    public String getInfo(Model model) {
-//
-//        ScrappingFormData data = new ScrappingFormData();
-//        List<Category> categories = Arrays.asList(CONCERTS, CONFERENCEC, EXHIBITIONS, FESTIVAL, OTHER);
-////        Map<String> categories = Arrays.asList("Концерти", "Конференції","Фестивалі","Виставки","Інше");
-//        HashMap<Category, String> categoryMap = new HashMap<>();
-//        categoryMap.put(CONCERTS, "Концерти");
-//        categoryMap.put(CONFERENCEC, "Конференції");
-//        categoryMap.put(EXHIBITIONS, "Виставки");
-//        categoryMap.put(FESTIVAL, "Фестивалі");
-//        categoryMap.put(OTHER, "Інше");
-//
-//        List<Site> allSites = Arrays.asList(
-//                new Site(1, "LvivOnline", "https://lviv-online.com/ua/", categoryMap),
-//                new Site(2, "Gastroli", "https://gastroli.ua/en/Lviv", categoryMap),
-//                new Site(3, "Philarmonia", "https://philharmonia.lviv.ua/events/", categoryMap),
-//                new Site(4, "TicketClub", "https://ticketclub.com.ua/?ct=1", categoryMap));
-//
-//
-//        data.setOutputSites(allSites);
-//
-//
-//        model.addAttribute("allSites", data);
-//        model.addAttribute("resultData", new SearchData());
-//        return "main";
-//    }
 
     @GetMapping("/search")
-    public String vikFront(Model model) {
+    public String getInfo(Model model) {
         ScrappingFormData data = new ScrappingFormData();
         HashMap<Category, String> categoryMap = new HashMap<>();
         categoryMap.put(CONCERTS, "Концерти");
@@ -110,63 +67,117 @@ public class MainPageController {
         categoryMap.put(FESTIVAL, "Фестивалі");
         categoryMap.put(OTHER, "Інше");
         List<Site> allSites = Arrays.asList(
-                new Site(1, "LvivOnline", "https://lviv-online.com/ua/", categoryMap),
-                new Site(2, "Gastroli", "https://gastroli.ua/en/Lviv", categoryMap),
-                new Site(3, "Philarmonia", "https://philharmonia.lviv.ua/events/", categoryMap),
-                new Site(4, "TicketClub", "https://ticketclub.com.ua/?ct=1", categoryMap));
+                new Site("lvivInfo", "LvivOnline", "https://lviv-online.com/ua/", categoryMap),
+                new Site("gastroli", "Gastroli", "https://gastroli.ua/en/Lviv", categoryMap),
+                new Site("philarmonia", "Philarmonia", "https://philharmonia.lviv.ua/events/", categoryMap),
+                new Site("ticketClub", "TicketClub", "https://ticketclub.com.ua/?ct=1", categoryMap));
+
         data.setOutputSites(allSites);
         model.addAttribute("allSites", data);
         model.addAttribute("resultData", new SearchData());
         return "index";
     }
 
-    @PostMapping("/searchOld")
-    public ModelAndView processInfo(@ModelAttribute SearchData searchData) {
+    @PostMapping("/search")
+    public String processInfo(ServletRequest request) throws IOException {
+        //https://stackoverflow.com/questions/3831680/httpservletrequest-get-json-post-data
+        String jsonString = request.getReader().lines().collect(Collectors.joining());
+        ScrappingFormData scrappingFormData = new ObjectMapper().readValue(jsonString, ScrappingFormData.class);
+        System.out.println(scrappingFormData);
+        System.out.println(jsonString);
 
-        tempDatastore.clear();
+        CTRequestData requestData = new DataConverter().toRequestDataScraping(scrappingFormData);
+        System.out.println("requestData.getData(): " + requestData.getData());
+
+        //Load Balancing
+        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service");
+        String searchEngineUrl = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
+        System.out.println("URL: " + searchEngineUrl);
+
+
+        return "redirect:/main/search";
+    }
+
+    @PostMapping("/searchOld")
+    public String processInfo(@ModelAttribute SearchData searchData) {
+
+        TempDatastore tempDatastore = new TempDatastore();
 
         System.out.println("here");
         System.out.println("search data: " + searchData);
 
         CTRequestData requestData = new DataConverter().toRequestData(searchData);
 
-    @PostMapping("/search")
-    public String vikData(ServletRequest request) throws IOException {
-        //https://stackoverflow.com/questions/3831680/httpservletrequest-get-json-post-data
-        //request.getReader().lines().collect(Collectors.joining())
-        System.out.println(request.getReader().lines().collect(Collectors.joining()));
-        return "redirect:/main/search";
-    }
+        System.out.println("requestData.getData(): " + requestData.getData());
 
-        SiteData siteData = requestData.getData().get(0);
-
-        ServiceInstance engineSrvice = loadBalancerClient.choose("engine-service");
-        System.out.println("engineSrvice: " + engineSrvice);
-        String searchEngineUrl = "http://" + engineSrvice.getHost() + ":" + engineSrvice.getPort() + "/processEvents";
+        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service");
+        String searchEngineUrl = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
         System.out.println("URL: " + searchEngineUrl);
+
+
+//        ResultObject resultObjectFlux = Flux.fromIterable(requestData.getData())
+//                .flatMap(site -> webClient.post()
+//                                .uri(searchEngineUrl)
+//                                .body(BodyInserters.fromObject(site))
+////                        .accept(MediaType.APPLICATION_JSON)
+//                                .retrieve()
+//                                .bodyToFlux(ResultObject.class)
+//
+//                )
+//                .subscribeOn(Schedulers.parallel())
+//                .collect()
+//                .blockLast();
+//
+////                .map(site -> webClient
+////                                .post()
+////                                .uri(emailServiceUrl)
+////                                .body(BodyInserters.fromObject(site))
+////                                .retrieve()
+////                                .bodyToMono(Void.class)
+//////                        .subscribe(v -> System.out.println("thiiiss" + v))
+////                )
+
 
         List<SiteData> data = requestData.getData();
         for (int i = 0; i < data.size(); i++) {
-            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST).uri(searchEngineUrl).body(BodyInserters.fromObject(data.get(i)));
+            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
+                    .uri(searchEngineUrl)
+                    .body(BodyInserters.fromObject(data.get(i)));
+
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
             resultObjectMono.subscribe(e -> {
-                        tempDatastore.append(e);
-                        if (data.size() == tempDatastore.getSize()) {
-                            System.out.println("INTO for");
-                            int size = tempDatastore.getResultObjects().size();
-                            System.out.println("size: " + size);
+                tempDatastore.append(e);
+                if (data.size() == tempDatastore.getSize()) {
+                    System.out.println("INTO for");
+                    int size = tempDatastore.getResultObjects().size();
+                    System.out.println("size: " + size);
 
-                            //method();
-                        }
-                    }
-            );
+                }
+            });
         }
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("result");
+        return "";
 
-        System.out.println("In the end");
+    }
 
-        return modelAndView;
+    public void saveDataToExcel(TempDatastore datastores) {
+        List<ResultObject> resultObjects = datastores.getResultObjects();
+
+        Workbook xssfWorkbook = new XSSFWorkbook();
+        Workbook workbook = new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
+
+        //method();
+    }
+
+    @PostMapping("/search111")
+    public String processInfoSecond(ServletRequest request) throws IOException {
+        //https://stackoverflow.com/questions/3831680/httpservletrequest-get-json-post-data
+        String jsonString = request.getReader().lines().collect(Collectors.joining());
+        ScrappingFormData scrappingFormData = new ObjectMapper().readValue(jsonString, ScrappingFormData.class);
+        System.out.println(scrappingFormData);
+        System.out.println(jsonString);
+
+
+        return "redirect:/main/search";
     }
 }
