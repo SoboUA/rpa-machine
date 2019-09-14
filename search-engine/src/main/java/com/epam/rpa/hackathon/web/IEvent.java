@@ -22,4 +22,8 @@ public interface IEvent {
 
     void setDescription(String description);
 
+    void setImageLink(String imageLink);
+
+    String getImageLink();
+
 }
