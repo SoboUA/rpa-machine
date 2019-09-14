@@ -29,7 +29,6 @@ import reactor.core.publisher.Mono;
 
 import javax.servlet.ServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -87,6 +86,8 @@ public class MainPageController {
         System.out.println(scrappingFormData);
         System.out.println(jsonString);
 
+        TempDatastore tempDatastore = new TempDatastore();
+
         CTRequestData requestData = new DataConverter().toRequestDataScraping(scrappingFormData);
         System.out.println("requestData.getData(): " + requestData.getData());
 
@@ -96,7 +97,32 @@ public class MainPageController {
         System.out.println("URL: " + searchEngineUrl);
 
 
+        List<SiteData> data = requestData.getData();
+        for (int i = 0; i < data.size(); i++) {
+            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
+                    .uri(searchEngineUrl)
+                    .body(BodyInserters.fromObject(data.get(i)));
+
+            Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
+            resultObjectMono.subscribe(e -> {
+                tempDatastore.append(e);
+                if (data.size() == tempDatastore.getSize()) {
+                    System.out.println("INTO for");
+                    System.out.println("data size: "+ data.size());
+                    int size = tempDatastore.getResultObjects().size();
+                    System.out.println("size: " + size);
+
+                    Workbook workbook = saveDataToExcel(tempDatastore);
+
+                    sendMail(workbook, scrappingFormData.getEmail());
+                }
+            });
+        }
+
         return "redirect:/main/search";
+    }
+
+    public void sendMail(Workbook workbook, String email) {
     }
 
     @PostMapping("/searchOld")
@@ -138,7 +164,12 @@ public class MainPageController {
 //////                        .subscribe(v -> System.out.println("thiiiss" + v))
 ////                )
 
-        List<ResultObject> resultObjectList = new ArrayList<>();
+//        requestData.getData().forEach(body -> {
+//            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.GET).uri("http://localhost:8090/easy/send").body(BodyInserters.fromObject(body));
+//            Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class).block();
+//            resultObjectMono.subscribe(e -> tempDatastore.append(e));
+//        });
+
         List<SiteData> data = requestData.getData();
         for (int i = 0; i < data.size(); i++) {
             WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
@@ -161,11 +192,11 @@ public class MainPageController {
 
     }
 
-    public void saveDataToExcel(TempDatastore datastores) {
+    public Workbook saveDataToExcel(TempDatastore datastores) {
         List<ResultObject> resultObjects = datastores.getResultObjects();
 
         Workbook xssfWorkbook = new XSSFWorkbook();
-        Workbook workbook = new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
+        return  new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
 
         //method();
     }
