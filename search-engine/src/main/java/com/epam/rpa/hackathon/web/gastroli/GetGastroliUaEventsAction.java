@@ -17,7 +17,7 @@ public class GetGastroliUaEventsAction implements IGetEventsAction {
         try {
             GastroliUaHomePage gastroliPage = new GastroliUaHomePage(webDriver);
 
-            return gastroliPage.setup().getCategorizedEvents();
+            return gastroliPage.setup().getEvents();
         } finally {
             webDriver.close();
         }

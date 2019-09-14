@@ -68,4 +68,14 @@ public class LvivOnlineEvent implements IEvent {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public void setImageLink(String imageLink) {
+
+    }
+
+    @Override
+    public String getImageLink() {
+        return null;
+    }
 }

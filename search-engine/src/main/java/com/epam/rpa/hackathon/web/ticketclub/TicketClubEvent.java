@@ -69,4 +69,14 @@ public class TicketClubEvent implements IEvent {
         this.description = description;
     }
 
+    @Override
+    public void setImageLink(String imageLink) {
+
+    }
+
+    @Override
+    public String getImageLink() {
+        return null;
+    }
+
 }
