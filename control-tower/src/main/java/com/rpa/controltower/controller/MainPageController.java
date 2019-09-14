@@ -29,6 +29,7 @@ import reactor.core.publisher.Mono;
 
 import javax.servlet.ServletRequest;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -137,7 +138,7 @@ public class MainPageController {
 //////                        .subscribe(v -> System.out.println("thiiiss" + v))
 ////                )
 
-
+        List<ResultObject> resultObjectList = new ArrayList<>();
         List<SiteData> data = requestData.getData();
         for (int i = 0; i < data.size(); i++) {
             WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
