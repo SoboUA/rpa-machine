@@ -1,12 +1,17 @@
 package com.rpa.controltower.model.ui;
 
+import com.rpa.controltower.model.Category;
+
+import java.util.List;
+import java.util.Map;
+
 public class Site {
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,19 +39,39 @@ public class Site {
         this.description = description;
     }
 
-    private Integer id;
+    public Map<Category, String> getCategory() {
+        return category;
+    }
+
+    public void setCategory(Map<Category, String> category) {
+        this.category = category;
+    }
+
+    private Map<Category,String> category;
+
+
+
+    private String id;
     private String name;
     private String url;
     private String description;
 
+
+
     public Site() {
     }
 
-    public Site(Integer id,String name, String url, String desctription) {
+    public Site(String id,String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
-        this.description = desctription;
+    }
+
+    public Site(String id, String name, String url, Map<Category,String> categories) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.category = categories;
     }
 
     @Override
