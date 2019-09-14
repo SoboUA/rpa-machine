@@ -22,9 +22,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.rpa.controltower.model.Category.*;
@@ -72,12 +70,19 @@ public class MainPageController {
 
         ScrappingFormData data = new ScrappingFormData();
         List<Category> categories = Arrays.asList(CONCERTS, CONFERENCEC, EXHIBITIONS, FESTIVAL, OTHER);
+//        Map<String> categories = Arrays.asList("Концерти", "Конференції","Фестивалі","Виставки","Інше");
+        HashMap<Category, String> categoryMap = new HashMap<>();
+        categoryMap.put(CONCERTS, "Концерти");
+        categoryMap.put(CONFERENCEC, "Конференції");
+        categoryMap.put(EXHIBITIONS, "Виставки");
+        categoryMap.put(FESTIVAL, "Фестивалі");
+        categoryMap.put(OTHER, "Інше");
 
         List<Site> allSites = Arrays.asList(
-                new Site(1, "LvivOnline", "https://lviv-online.com/ua/", categories),
-                new Site(2, "Gastroli", "https://gastroli.ua/en/Lviv", categories),
-                new Site(3, "Philarmonia", "https://philharmonia.lviv.ua/events/", categories),
-                new Site(4, "TicketClub", "https://ticketclub.com.ua/?ct=1", categories));
+                new Site(1, "LvivOnline", "https://lviv-online.com/ua/", categoryMap),
+                new Site(2, "Gastroli", "https://gastroli.ua/en/Lviv", categoryMap),
+                new Site(3, "Philarmonia", "https://philharmonia.lviv.ua/events/", categoryMap),
+                new Site(4, "TicketClub", "https://ticketclub.com.ua/?ct=1", categoryMap));
 
 
         data.setOutputSites(allSites);
