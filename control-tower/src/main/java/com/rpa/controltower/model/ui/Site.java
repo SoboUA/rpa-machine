@@ -1,5 +1,9 @@
 package com.rpa.controltower.model.ui;
 
+import com.rpa.controltower.model.Category;
+
+import java.util.List;
+
 public class Site {
 
     public Integer getId() {
@@ -34,19 +38,39 @@ public class Site {
         this.description = description;
     }
 
+    public List<Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Category> category) {
+        this.category = category;
+    }
+
+    private List<Category> category;
+
+
+
     private Integer id;
     private String name;
     private String url;
     private String description;
 
+
+
     public Site() {
     }
 
-    public Site(Integer id,String name, String url, String desctription) {
+    public Site(Integer id,String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
-        this.description = desctription;
+    }
+
+    public Site(Integer id, String name, String url, List<Category> categories) {
+        this.id = id;
+        this.name = name;
+        this.url = url;
+        this.category = categories;
     }
 
     @Override

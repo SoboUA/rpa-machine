@@ -3,6 +3,7 @@ package com.rpa.controltower.controller;
 import com.rpa.controltower.converter.DataConverter;
 import com.rpa.controltower.datastore.TempDatastore;
 import com.rpa.controltower.model.*;
+import com.rpa.controltower.model.ui.ScrappingFormData;
 import com.rpa.controltower.model.ui.Site;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -18,6 +19,8 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.rpa.controltower.model.Category.*;
 
 
 @Controller
@@ -36,14 +39,14 @@ public class MainPageController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("/search")
-    public String getInfo(Model model) {
+    @GetMapping("/searchOld")
+    public String getOldInfo(Model model) {
 
         //TODO Sobo make flexy
         List<Site> allSites = Arrays.asList(
-                new Site(1, "lvivInfo", "lviv.com", "nice Site"),
-                new Site(2, "touristLviv", "tourists.com", "norm"),
-                new Site(3, "livandovkaLife", "gopnik.com", "bad site")
+                new Site(1, "lvivInfo", "lviv.com"),
+                new Site(2, "touristLviv", "tourists.com"),
+                new Site(3, "livandovkaLife", "gopnik.com")
         );
 
 
@@ -52,9 +55,29 @@ public class MainPageController {
         return "main";
     }
 
+    @GetMapping("/search")
+    public String getInfo(Model model) {
+
+        ScrappingFormData data = new ScrappingFormData();
+        List<Category> categories = Arrays.asList(CONCERTS, CONFERENCEC, EXHIBITIONS, FESTIVAL, OTHER);
+
+        List<Site> allSites = Arrays.asList(
+                new Site(1, "LvivOnline", "https://lviv-online.com/ua/", categories),
+                new Site(2, "Gastroli", "https://gastroli.ua/en/Lviv", categories),
+                new Site(3, "Philarmonia", "https://philharmonia.lviv.ua/events/", categories),
+                new Site(4, "TicketClub", "https://ticketclub.com.ua/?ct=1", categories));
+
+
+        data.setOutputSites(allSites);
+
+
+        model.addAttribute("allSites", data);
+        model.addAttribute("resultData", new SearchData());
+        return "main";
+    }
+
     @PostMapping("/search")
-    @ResponseBody
-    public ModelAndView processInfo(@ModelAttribute SearchData searchData) {
+    public String processInfo(@ModelAttribute SearchData searchData, Model model) {
 
         tempDatastore.clear();
 
@@ -93,8 +116,6 @@ public class MainPageController {
 
         System.out.println("TD: " + tempDatastore);
 
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("result");
 
         System.out.println("In the end");
 
@@ -119,8 +140,7 @@ public class MainPageController {
 //        });
 
         System.out.println("OK");
-
-        return modelAndView;
+        return "result";
     }
 
 }
