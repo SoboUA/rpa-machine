@@ -12,6 +12,9 @@ const scrapingAddSiteButton = document.querySelector('.scraping-container .site-
 const scrapingSiteTypes = document.querySelectorAll('.scraping-container .email-file-type');
 
 const scrapingEmailSendButton = document.querySelector('.scraping-container .email-send-button');
+const scrapingEmailInput = document.querySelector('.scraping-container .email-input');
+const scrapingDateFrom = document.querySelector('#scraping-date-from');
+const scrapingDateTo = document.querySelector('#scraping-date-to');
 
 function onHash() {
     switch (window.location.hash) {
@@ -156,8 +159,8 @@ function initPage() {
         });
     });
 
-    scrapingEmailSendButton.addEventListener('click',function () {
-        const selectedSiteIds = [].map.call(scrapingSiteContainer.children,function (item) {
+    scrapingEmailSendButton.addEventListener('click', function () {
+        const selectedSiteIds = [].map.call(scrapingSiteContainer.children, function (item) {
             return +item.querySelector('.site-select').value;
         });
         const selectedSitesObjs = modelData.outputSites.filter(function (item) {
@@ -166,13 +169,20 @@ function initPage() {
         for (let i = 0; i < selectedSitesObjs.length; i++) {
             const selectedTags = scrapingSiteContainer.children[i].querySelectorAll('.site-tag.tag-selected');
             selectedSitesObjs[i].category = selectedSitesObjs[i].category.filter(function (item) {
-               return true;
+                return true;
             });
         }
+        const selectedExports = [].map.call(scrapingContainer.querySelectorAll('.email-file-type.file-type-selected'), function (item) {
+            return item.textContent;
+        });
 
 
         const outputData = Object.assign({}, modelData);
         outputData.outputSites = selectedSitesObjs;
+        outputData.dateFrom = scrapingDateFrom.value;
+        outputData.dateTo = scrapingDateTo.value;
+        outputData.email = scrapingEmailInput.value;
+        outputData.exports = selectedExports;
     });
 }
 

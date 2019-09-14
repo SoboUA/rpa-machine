@@ -93,6 +93,27 @@ public class MainPageController {
         return "main";
     }
 
+    @GetMapping("/vik")
+    public String vik(Model model) {
+
+        ScrappingFormData data = new ScrappingFormData();
+        List<Category> categories = Arrays.asList(CONCERTS, CONFERENCEC, EXHIBITIONS, FESTIVAL, OTHER);
+
+        List<Site> allSites = Arrays.asList(
+                new Site(1, "LvivOnline", "https://lviv-online.com/ua/", categories),
+                new Site(2, "Gastroli", "https://gastroli.ua/en/Lviv", categories),
+                new Site(3, "Philarmonia", "https://philharmonia.lviv.ua/events/", categories),
+                new Site(4, "TicketClub", "https://ticketclub.com.ua/?ct=1", categories));
+
+
+        data.setOutputSites(allSites);
+
+
+        model.addAttribute("allSites", data);
+        model.addAttribute("resultData", new SearchData());
+        return "index";
+    }
+
     @PostMapping("/searchOld")
     public String processInfo(@ModelAttribute SearchData searchData) {
 
