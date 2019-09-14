@@ -54,9 +54,9 @@
                     </div>
                 </h1>
 
-                <div class="siteId-container"></div>
+                <div class="site-container"></div>
 
-                <div class="siteId-add">Додати сайт</div>
+                <div class="site-add">Додати сайт</div>
             </section>
 
             <div class="main-card email-container">
@@ -69,16 +69,16 @@
             </div>
 
             <template>
-                <div class="siteId-item">
-                    <label><select class="siteId-select">
-                        <option th:each="siteId : ${allSites.outputSites}" th:text="${siteId.url}" th:value="${siteId.id}"/>
+                <div class="site-item">
+                    <label><select class="site-select">
+                        <option th:each="site : ${allSites.outputSites}" th:text="${site.url}" th:value="${site.id}"/>
                     </select></label>
-                    <div class="siteId-tags-container">
-                        <div class="siteId-tag-all">Всі</div>
+                    <div class="site-tags-container">
+                        <div class="site-tag-all">Всі</div>
                     </div>
-                    <div class="siteId-delete-button">Видалити</div>
+                    <div class="site-delete-button">Видалити</div>
                 </div>
-                <div class="siteId-tag"></div>
+                <div class="site-tag"></div>
             </template>
         </div>
 

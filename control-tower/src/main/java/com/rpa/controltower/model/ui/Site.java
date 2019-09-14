@@ -7,21 +7,21 @@ import java.util.Map;
 
 public class Site {
 
-    public Integer getNumber() {
-        return number;
-    }
+//    public Integer getNumber() {
+//        return number;
+//    }
+//
+//    public void setNumber(Integer number) {
+//        this.number = number;
+//    }
+//
+//    private  Integer number;
 
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    private  Integer number;
-
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,38 +57,36 @@ public class Site {
         this.category = category;
     }
 
-    private Map<Category,String> category;
+    private Map<Category, String> category;
 
 
-
-    private String id;
+    private Integer id;
     private String name;
     private String url;
     private String description;
 
 
-
     public Site() {
     }
 
-    public Site(String id,String name, String url) {
+    public Site(Integer id, String name, String url) {
         this.id = id;
         this.name = name;
         this.url = url;
     }
 
-    public Site(String id, String name, String url, Map<Category,String> categories) {
+    public Site(Integer id, String name, String url, Map<Category, String> categories) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.category = categories;
     }
-    public Site(Integer id, String name, String url, Map<Category,String> categories) {
-        this.number = id;
-        this.name = name;
-        this.url = url;
-        this.category = categories;
-    }
+//    public Site(Integer id, String name, String url, Map<Category,String> categories) {
+//        this.number = id;
+//        this.name = name;
+//        this.url = url;
+//        this.category = categories;
+//    }
 
     @Override
     public String toString() {

@@ -28,7 +28,7 @@ public class SiteData {
         this.dateTo = dateTo;
     }
     public SiteData(Site info,Date dateFrom,Date dateTo) {
-        this.siteId = info.getId();
+        this.siteId = info.getId().toString();
         this.siteUrl = info.getUrl();
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
