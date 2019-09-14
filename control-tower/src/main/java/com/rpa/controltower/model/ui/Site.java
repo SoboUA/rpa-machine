@@ -3,6 +3,7 @@ package com.rpa.controltower.model.ui;
 import com.rpa.controltower.model.Category;
 
 import java.util.List;
+import java.util.Map;
 
 public class Site {
 
@@ -38,15 +39,15 @@ public class Site {
         this.description = description;
     }
 
-    public List<Category> getCategory() {
+    public Map<Category, String> getCategory() {
         return category;
     }
 
-    public void setCategory(List<Category> category) {
+    public void setCategory(Map<Category, String> category) {
         this.category = category;
     }
 
-    private List<Category> category;
+    private Map<Category,String> category;
 
 
 
@@ -66,7 +67,7 @@ public class Site {
         this.url = url;
     }
 
-    public Site(Integer id, String name, String url, List<Category> categories) {
+    public Site(Integer id, String name, String url, Map<Category,String> categories) {
         this.id = id;
         this.name = name;
         this.url = url;

@@ -8,6 +8,16 @@ import java.util.List;
 
 public class ScrappingFormData {
     private List<Site> outputSites;
+    private String email;
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFrom;
