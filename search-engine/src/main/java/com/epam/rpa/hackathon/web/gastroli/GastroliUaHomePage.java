@@ -45,16 +45,13 @@ public class GastroliUaHomePage extends GastroliUaPage {
 
     public GastroliUaHomePage setup() {
         try {
-            Actions actions = new Actions(driver);
             WebDriverWait wait = new WebDriverWait(driver, 10);
 
             wait.until(ExpectedConditions.visibilityOf(language)).click();
-            //actions.moveToElement(language).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[4]//div[text() = 'UA']"))).click();
 
             wait.until(ExpectedConditions.visibilityOf(cityDropDown)).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[4]//div[text() = 'Львів']"))).click();
-
         } catch (Exception e) {
             logger.warn("Logger : " + e.getMessage());
         }
@@ -62,103 +59,9 @@ public class GastroliUaHomePage extends GastroliUaPage {
         return this;
     }
 
-    public List<GastroliEvent> getCategorizedEvents() {
-        List<GastroliEvent> events = new ArrayList<>();
-        Actions actions = new Actions(driver);
+    public void scrapEventLinks(){
 
-        List<WebElement> filteredCategories = filterCategories(categories);
-
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-
-        for (WebElement category : filteredCategories) {
-            String categoryStr = category.getText();
-            logger.warn("Started to process " + categoryStr);
-
-            actions.moveToElement(category).perform();
-            category.click();
-
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                logger.warn(e.getMessage());
-            }
-
-            logger.warn("Started to explore events");
-
-            exploreAllEvents();
-
-            logger.warn("Started to scrap data");
-            List<GastroliEvent> gastroliEvents = scrapData(categoryStr);
-
-            logger.warn("Started to unite data");
-            gastroliEvents = unite(gastroliEvents);
-
-            events.addAll(gastroliEvents);
-
-            logger.warn("Appended category set");
-        }
-
-        return events;
     }
-
-    private List<WebElement> filterCategories(List<WebElement> list) {
-        String allCategories = "Усі категорії";
-        String suggestion = "Найкращі події";
-
-        return list.stream().filter(e -> !e.getText().contains(allCategories)
-                && !e.getText().contains(suggestion)).collect(Collectors.toList());
-    }
-
-    private void exploreAllEvents() {
-
-        int count = 0;
-        int limit = 200;
-
-        while (true) {
-            if (++count > limit) {
-                logger.warn("Limit");
-                break;
-            }
-
-            logger.warn("New More button press cycle");
-
-            try {
-                WebElement more = driver.findElement(By.xpath("//div[contains(text(), 'Показано')]"));
-                more.click();
-            } catch (Exception e) {
-                logger.warn("Can`t find More button");
-                break;
-            }
-        }
-    }
-
-    private List<GastroliEvent> scrapData(String category) {
-
-        List<WebElement> items = driver.findElements(By.xpath("//div[@class='list-item-inner']"));
-
-        return items.stream().map(element ->
-                new GastroliEvent(category,
-                        findSubElementBy(element, By.xpath(".//div[@class='list-item-desc']/a")).getText(),
-                        findSubElementBy(element, By.xpath(".//p[2]")).getText(),
-                        findSubElementBy(element, By.xpath(".//p[1]")).getText(),
-                        "",
-                        findSubElementBy(element, By.xpath(".//img")).getAttribute("src")))
-                .collect(Collectors.toList());
-    }
-
-    public WebElement findSubElementBy(WebElement element, By expression) {
-        return element.findElement(expression);
-    }
-
-    private List<GastroliEvent> unite(List<GastroliEvent> list) {
-
-        Collection<List<GastroliEvent>> grouped = list.stream()
-                .collect(groupingBy(GastroliEvent::getTitle)).values();
-
-        return grouped.stream().map(GastroliEvent.UniqueEvent::new).map(GastroliEvent.UniqueEvent::simplify).flatMap(List::stream)
-                .collect(Collectors.toList());
-    }
-
 
 }
 
