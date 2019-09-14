@@ -7,7 +7,8 @@ import java.util.Map;
 public enum Property {
 
     WEBDRIVER_CHROME_DRIVER("webdriver.chrome.driver"),
-    LVIV_ONLINE_HOMEPAGE("lviv.online.homepage");
+    LVIV_ONLINE_HOMEPAGE("lviv.online.homepage"),
+    TICKET_CLUB_HOMEPAGE("ticket.club.homepage");
 
     private String value;
 

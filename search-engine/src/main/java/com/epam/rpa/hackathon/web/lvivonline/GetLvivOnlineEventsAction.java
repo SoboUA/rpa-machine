@@ -26,8 +26,4 @@ public class GetLvivOnlineEventsAction implements IGetEventsAction {
         }
     }
 
-    @Override
-    public String getEventsJson() {
-        return JsonUtil.toStringRepresentation(this.getEvents());
-    }
 }

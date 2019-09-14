@@ -2,7 +2,24 @@ package com.epam.rpa.hackathon.web;
 
 public interface IEvent {
 
-    String category = null;
+    String getCategory();
 
+    void setCategory(String category);
+
+    String getTitle();
+
+    void setTitle(String title);
+
+    String getStartDate();
+
+    void setStartDate(String startDate);
+
+    String getPlace();
+
+    void setPlace(String place);
+
+    String getDescription();
+
+    void setDescription(String description);
 
 }
