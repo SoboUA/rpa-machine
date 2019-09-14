@@ -7,7 +7,6 @@ import java.util.Date;
 public class SiteData {
 
     private String site;
-    private boolean sendEmail;
     private String simpleText;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -19,9 +18,8 @@ public class SiteData {
     public SiteData() {
     }
 
-    public SiteData(String site, boolean sendEmail, String simpleText, Date dateFrom, Date dateTo) {
+    public SiteData(String site, String simpleText, Date dateFrom, Date dateTo) {
         this.site = site;
-        this.sendEmail = sendEmail;
         this.simpleText = simpleText;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
@@ -33,14 +31,6 @@ public class SiteData {
 
     public void setSite(String site) {
         this.site = site;
-    }
-
-    public boolean isSendEmail() {
-        return sendEmail;
-    }
-
-    public void setSendEmail(boolean sendEmail) {
-        this.sendEmail = sendEmail;
     }
 
     public String getSimpleText() {
@@ -71,7 +61,6 @@ public class SiteData {
     public String toString() {
         return "SiteData{" +
                 "site='" + site + '\'' +
-                ", sendEmail=" + sendEmail +
                 ", simpleText='" + simpleText + '\'' +
                 ", dateFrom=" + dateFrom +
                 ", dateTo=" + dateTo +

@@ -1,6 +1,12 @@
 package com.rpa.controltower.model;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ResultObject {
 
@@ -9,6 +15,17 @@ public class ResultObject {
 
 
     public ResultObject() {
+    }
+
+
+    public Map<Integer, String> convertToMap() {
+        List<String> listFields = Arrays.asList(item, quantity, skunumber, location, toWarehouse, fromWarehouse, order, status, failureReason);
+
+
+        return IntStream.range(0, listFields.size())
+                .boxed()
+                .filter(i -> StringUtils.isNotBlank(listFields.get(i)))
+                .collect(Collectors.toMap(i -> i, listFields::get));
     }
 
     public SiteData getSiteData() {

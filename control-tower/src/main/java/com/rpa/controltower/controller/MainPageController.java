@@ -128,7 +128,7 @@ public class MainPageController {
         for (int i = 0; i < data.size(); i++) {
             WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST).uri("http://localhost:8082/processEvents").body(BodyInserters.fromObject(data.get(i)));
 //            resultObjectMono = requestBodySpec.retrieve().bodyToFlux(ResultObject.class);
-//            resultObjectMono.subscribe(resultObjects::add);
+//            resultObjectMono.subscribe(resultObjects::add);++bbb
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
             resultObjectMono.subscribe(e -> tempDatastore.append(e));
 
