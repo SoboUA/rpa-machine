@@ -39,6 +39,18 @@
                     </div>
                 </li>
             </ul>
+            <ul>
+                <li th:each="siteInfo,itemStat : ${allSites}">
+
+                    <div class="insertBlock">
+                    <span class="formSpan">
+                        <input type="checkbox" th:value="${siteInfo.name}" th:field="${resultData.sites[__${itemStat.index}__]}">
+                        <label th:text="${siteInfo.name}"></label><br>
+
+                    </span>
+                    </div>
+                </li>
+            </ul>
 
 
             <span class="formSpan" style="margin-bottom:20px">-->

@@ -18,15 +18,15 @@ public class ResultObject {
     }
 
 
-    public Map<Integer, String> convertToMap() {
-        List<String> listFields = Arrays.asList();
-
-
-        return IntStream.range(0, listFields.size())
-                .boxed()
-                .filter(i -> StringUtils.isNotBlank(listFields.get(i)))
-                .collect(Collectors.toMap(i -> i, listFields::get));
-    }
+//    public Map<Integer, String> convertToMap() {
+//        List<String> listFields = Arrays.asList(item, quantity, skunumber, location, toWarehouse, fromWarehouse, order, status, failureReason);
+//
+//
+//        return IntStream.range(0, listFields.size())
+//                .boxed()
+//                .filter(i -> StringUtils.isNotBlank(listFields.get(i)))
+//                .collect(Collectors.toMap(i -> i, listFields::get));
+//    }
 
     public SiteData getSiteData() {
         return siteData;
