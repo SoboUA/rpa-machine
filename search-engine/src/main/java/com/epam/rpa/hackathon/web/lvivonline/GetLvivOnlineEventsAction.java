@@ -6,6 +6,7 @@ import com.epam.rpa.hackathon.web.IGetEventsAction;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component(SiteNames.LVIV_ONLINE)
@@ -26,7 +27,7 @@ public class GetLvivOnlineEventsAction implements IGetEventsAction {
     }
 
     @Override
-    public List<? extends IEvent> getEvents(String from, String to) {
+    public List<IEvent> getEventsForPeriod(LocalDate dateFrom, LocalDate dateTo) {
         return null;
     }
 

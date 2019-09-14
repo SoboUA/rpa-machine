@@ -7,6 +7,8 @@ import com.epam.rpa.hackathon.web.IGetEventsAction;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Component(SiteNames.GASTROLI)
@@ -17,7 +19,7 @@ public class GetGastroliUaEventsAction implements IGetEventsAction {
     }
 
     @Override
-    public List<? extends IEvent> getEvents(String from, String to) {
+    public List<? extends IEvent> getEventsForPeriod(LocalDate from, LocalDate to) {
         WebDriver webDriver = new GastroliWebDriverProvider().getDriver();
         try {
             GastroliUaHomePage gastroliPage = new GastroliUaHomePage(webDriver);

@@ -47,7 +47,7 @@ public class GastroliUaHomePage extends GastroliUaPage {
         System.out.println(links);
 
         return links.stream()
-                .limit(20)
+                .limit(10)
                 .map(this::processEvent)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());

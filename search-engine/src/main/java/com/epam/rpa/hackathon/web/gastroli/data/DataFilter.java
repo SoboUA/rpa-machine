@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,12 +15,13 @@ public class DataFilter {
     private static Logger logger = LoggerFactory.getLogger(DataFilter.class);
 
 
-    private static String dataRegex = "(\\d{2})\\s(\\D*)\\s(\\d{4})";
+    private static String dataRegex = "(\\d{2})\\s(\\D*)\\s(\\d{4}).*";
 
-    public static boolean filter(String from, String to, String recent){
-        String rec = convert(recent);
-        System.out.println("Converted : " + rec + " " + recent);
-        if(rec.compareTo(from) > 0 && rec.compareTo(to) < 0){
+    public static boolean filter(LocalDate from, LocalDate to, String recent){
+
+        LocalDate rec = LocalDate.parse(convert(recent), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        if(rec.isAfter(from) && rec.isBefore(to)){
             System.out.println("true");
             return true;
         }

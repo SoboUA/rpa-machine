@@ -24,7 +24,7 @@ public class GetTicketClubEventsAction implements IGetEventsAction {
     }
 
     @Override
-    public List<? extends IEvent> getEvents(String from, String to) {
+    public List<IEvent> getEventsForPeriod(LocalDate dateFrom, LocalDate dateTo) {
         return null;
     }
 

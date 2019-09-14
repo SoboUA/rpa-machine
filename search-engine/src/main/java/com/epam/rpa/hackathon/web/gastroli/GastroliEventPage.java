@@ -9,6 +9,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDate;
+
 public class GastroliEventPage extends GastroliUaPage {
 
     private Logger logger = LoggerFactory.getLogger(GastroliEventPage.class);
@@ -39,7 +41,7 @@ public class GastroliEventPage extends GastroliUaPage {
         PageFactory.initElements(driver, this);
     }
 
-    public GastroliEvent returnEvent(String from, String to) {
+    public GastroliEvent returnEvent(LocalDate from, LocalDate to) {
 
         String locationLink = locationElement.getAttribute("href");
 
@@ -47,7 +49,7 @@ public class GastroliEventPage extends GastroliUaPage {
         String titleStr = title.getText();
         String dateStr = date.getText();
 
-        logger.warn("Before data filter");
+        logger.warn("Before data filter : " + dateStr + " " + from + " " + to);
         if(!DataFilter.filter(from, to, dateStr)){
             logger.warn("Is NULL");
             return null;

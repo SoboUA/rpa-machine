@@ -2,6 +2,7 @@ package com.epam.rpa.hackathon.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class SiteData {
@@ -11,15 +12,15 @@ public class SiteData {
     private String simpleText;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateFrom;
+    private LocalDate dateFrom;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateTo;
+    private LocalDate dateTo;
 
     public SiteData() {
     }
 
-    public SiteData(String site, boolean sendEmail, String simpleText, Date dateFrom, Date dateTo) {
+    public SiteData(String site, boolean sendEmail, String simpleText, LocalDate dateFrom, LocalDate dateTo) {
         this.site = site;
         this.sendEmail = sendEmail;
         this.simpleText = simpleText;
@@ -51,19 +52,19 @@ public class SiteData {
         this.simpleText = simpleText;
     }
 
-    public Date getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(Date dateFrom) {
+    public void setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public Date getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(Date dateTo) {
+    public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
     }
 
