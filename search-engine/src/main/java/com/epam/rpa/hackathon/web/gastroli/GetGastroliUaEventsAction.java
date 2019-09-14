@@ -13,9 +13,15 @@ import java.util.List;
 public class GetGastroliUaEventsAction implements IGetEventsAction {
     @Override
     public List<? extends IEvent> getEvents() {
+        return null;
+    }
+
+    @Override
+    public List<? extends IEvent> getEvents(String from, String to) {
         WebDriver webDriver = new GastroliWebDriverProvider().getDriver();
         try {
             GastroliUaHomePage gastroliPage = new GastroliUaHomePage(webDriver);
+            gastroliPage.setDataRange(from, to);
 
             return gastroliPage.setup().getEvents();
         } finally {

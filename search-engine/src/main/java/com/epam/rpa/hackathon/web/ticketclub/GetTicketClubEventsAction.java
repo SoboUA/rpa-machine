@@ -1,9 +1,7 @@
 package com.epam.rpa.hackathon.web.ticketclub;
 
-import com.epam.rpa.hackathon.util.JsonUtil;
 import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.IGetEventsAction;
-import com.epam.rpa.hackathon.web.lvivonline.LvivOnlineHomePage;
 import org.openqa.selenium.WebDriver;
 
 import java.time.LocalDate;
@@ -23,6 +21,16 @@ public class GetTicketClubEventsAction implements IGetEventsAction {
         } finally {
             webDriver.close();
         }
+    }
+
+    @Override
+    public List<? extends IEvent> getEvents(String from, String to) {
+        return null;
+    }
+
+    @Override
+    public String getEventsJson() {
+        return null;
     }
 
 }

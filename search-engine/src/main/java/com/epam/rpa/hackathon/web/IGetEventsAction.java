@@ -9,6 +9,10 @@ public interface IGetEventsAction {
 
     List<? extends IEvent> getEvents();
 
+    List<? extends IEvent> getEvents(String from, String to);
+
+    //List<? extends IEvent> getEvents(String from, String to, );
+
 //    String getEventsJson();
 
     default String getEventsJson() {

@@ -1,7 +1,6 @@
 package com.epam.rpa.hackathon.web.lvivonline;
 
 import com.epam.rpa.hackathon.property.SiteNames;
-import com.epam.rpa.hackathon.util.JsonUtil;
 import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.IGetEventsAction;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +23,16 @@ public class GetLvivOnlineEventsAction implements IGetEventsAction {
         } finally {
             webDriver.close();
         }
+    }
+
+    @Override
+    public List<? extends IEvent> getEvents(String from, String to) {
+        return null;
+    }
+
+    @Override
+    public String getEventsJson() {
+        return null;
     }
 
 }
