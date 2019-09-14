@@ -18,6 +18,10 @@ public class TempDatastore {
         resultObjects.add(resultObject);
     }
 
+    public int getSize(){
+        return resultObjects.size();
+    }
+
     public void  appendList(List<ResultObject> resultObjects){
         this.resultObjects = resultObjects;
     }

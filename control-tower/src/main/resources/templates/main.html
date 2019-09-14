@@ -26,7 +26,19 @@
         <!-- Insert new guest -->
         <span class="subtitle">Please choose from below</span>
 
-        <form method="post" id="searchForm" th:action="@{/main/search}" th:object="${resultData}">
+        <form method="post" id="searchForm" th:action="@{/main/searchOld}" th:object="${resultData}">
+            <ul>
+                <li th:each="siteInfo,itemStat : ${allSites}">
+
+                    <div class="insertBlock">
+                    <span class="formSpan">
+                        <input type="checkbox" th:value="${siteInfo.name}" th:field="${resultData.sites[__${itemStat.index}__]}">
+                        <label th:text="${siteInfo.name}"></label><br>
+
+                    </span>
+                    </div>
+                </li>
+            </ul>
             <ul>
                 <li th:each="siteInfo,itemStat : ${allSites}">
 

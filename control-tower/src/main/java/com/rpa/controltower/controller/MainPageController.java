@@ -89,7 +89,7 @@ public class MainPageController {
     }
 
     @PostMapping("/searchOld")
-    public String processInfo(@ModelAttribute SearchData searchData) {
+    public ModelAndView processInfo(@ModelAttribute SearchData searchData) {
 
         tempDatastore.clear();
 
@@ -102,117 +102,33 @@ public class MainPageController {
 
         SiteData siteData = requestData.getData().get(0);
 
-        ServiceInstance serviceInstance = loadBalancerClient.choose("engine-service");
-        ServiceInstance serviceInstance2 = loadBalancerClient.choose("email-service");
-        System.out.println("serviceInstance: " + serviceInstance);
-        String searchEngineUrl = "http://" + serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/processEvents";
-        String emailServiceUrl = "http://" + serviceInstance2.getHost() + ":" + serviceInstance2.getPort() + "/receiveResultObjects";
+        ServiceInstance engineSrvice = loadBalancerClient.choose("engine-service");
+        System.out.println("engineSrvice: " + engineSrvice);
+        String searchEngineUrl = "http://" + engineSrvice.getHost() + ":" + engineSrvice.getPort() + "/processEvents";
         System.out.println("URL: " + searchEngineUrl);
-        System.out.println("URL: " + emailServiceUrl);
 
-//        ResponseEntity entity = restTemplate.exchange(url, HttpMethod.POST, siteData, SiteData.class);
-//        SiteData restTempl = restTemplate.postForObject("http://engine-service/processEvents", siteData, SiteData.class);
-
-//        requestData.getData().forEach(body -> {
-////            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST).uri("http://engine-service/processEvents").body(BodyInserters.fromObject(body));
-//            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST).uri(searchEngineUrl).body(BodyInserters.fromObject(body));
-//            Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
-//            resultObjectMono.subscribe(e -> tempDatastore.append(e));
-////            ResultObject resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class).block();
-////            tempDatastore.append(resultObjectMono);
-//        });
-
-//        Flux<ResultObject> resultObjectMono = null;
-//        List<ResultObject> resultObjects = new ArrayList<>();
         List<SiteData> data = requestData.getData();
         for (int i = 0; i < data.size(); i++) {
-            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST).uri("http://localhost:8082/processEvents").body(BodyInserters.fromObject(data.get(i)));
-//            resultObjectMono = requestBodySpec.retrieve().bodyToFlux(ResultObject.class);
-//            resultObjectMono.subscribe(resultObjects::add);++bbb
+            WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST).uri(searchEngineUrl).body(BodyInserters.fromObject(data.get(i)));
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
-            resultObjectMono.subscribe(e -> tempDatastore.append(e));
+            resultObjectMono.subscribe(e -> {
+                        tempDatastore.append(e);
+                        if (data.size() == tempDatastore.getSize()) {
+                            System.out.println("INTO for");
+                            int size = tempDatastore.getResultObjects().size();
+                            System.out.println("size: " + size);
 
-            if (data.size()-1 == i) {
-                int size = tempDatastore.getResultObjects().size();
-                System.out.println(size);
-            }
+                            //method();
+                        }
+                    }
+            );
         }
 
-//        Flux<ResultObject> resultObjectFlux = Flux.fromIterable(data)
-//                .flatMap(site -> webClient.post()
-//                        .uri(searchEngineUrl)
-//                        .body(BodyInserters.fromObject(site))
-////                        .accept(MediaType.APPLICATION_JSON)
-//                        .retrieve()
-//                        .bodyToMono(ResultObject.class))
-//                .subscribeOn(Schedulers.parallel());
-//
-////                .map(site -> webClient
-////                                .post()
-////                                .uri(emailServiceUrl)
-////                                .body(BodyInserters.fromObject(site))
-////                                .retrieve()
-////                                .bodyToMono(Void.class)
-//////                        .subscribe(v -> System.out.println("thiiiss" + v))
-////                )
-////                 .subscribe();
-//
-//
-////        System.out.println("!!!!!!!!!!!1" + resultObjectFlux);
-////
-//        Flux.from(resultObjectFlux)
-//                .subscribe(System.)
-//
-//                .map(site -> webClient
-//                        .post()
-//                        .uri(emailServiceUrl)
-//                        .body(BodyInserters.fromObject(site))
-//                        .retrieve()
-//                        .bodyToMono(Void.class)
-////                        .subscribe(v -> System.out.println("thiiiss" + v))
-//                )
-//                .subscribe();
-//
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("result");
 
-//
-//        WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
-//                .uri("http://localhost:8082/processEvents")
-//                .body(BodyInserters.fromObject(data.get(i)));
-//
-//        Mono.when(resultObjectMono).subscribe(e -> tempDatastore.appendList(resultObjects));
-//        Mono.when(resultObjectMono).doOnSuccess(e -> System.out.println("++++++++++++++ " + e));
-//
-//        System.out.println("TD: " + tempDatastore);
-//
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("result");
-//
         System.out.println("In the end");
-//        List<ResultObject> resultObjects = tempDatastore.getResultObjects();
 
-
-//        Mono<Void> request = webClientBuilder.build().post().uri("http://localhost:8083/email/receiveResultObjects")
-//                .body(BodyInserters.fromObject(resultObjects))
-//                .retrieve()
-//                .bodyToMono(Void.class);
-
-//        webClientBuilder.build().post().uri("http://localhost:8083/email/receiveResultObjects")
-//                .body(BodyInserters.fromObject(tempDatastore.getResultObjects()));
-
-//        WebClient.RequestHeadersSpec spec = webClient.method(HttpMethod.POST).uri("http://localhost:8083/email/receiveResultObjects")
-//                .body(BodyInserters.fromObject(resultObjects.get(0)));
-
-//        ResultObject result = restTemplate.postForObject("http://localhost:8083/email/receiveResultObjects", resultObjects, ResultObject.class);
-
-//        resultObjects.forEach(resultObject -> {
-//            WebClient.RequestHeadersSpec spec = webClient.method(HttpMethod.POST).uri("http://localhost:8083/email/receiveResultObjects")
-//                .body(BodyInserters.fromObject(resultObject));
-//        });
-
-        System.out.println("OK");
-
-        return "result";
+        return modelAndView;
     }
-
-
 }
