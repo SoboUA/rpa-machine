@@ -24,6 +24,7 @@ public class ControlTowerApplication {
     }
 
     @Bean
+    @LoadBalanced
     public WebClient.Builder getWebClientBuilder() {
         return WebClient.builder();
     }
