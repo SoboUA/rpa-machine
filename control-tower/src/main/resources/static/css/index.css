@@ -109,7 +109,6 @@ header menu li a:hover, header .logo-container:hover {
 }
 
 .main-wrapper{
-
     min-height: 100vh;
     margin-bottom: -100px;
     padding-bottom: 100px;
@@ -118,9 +117,6 @@ header menu li a:hover, header .logo-container:hover {
 main {
     color: #2e59c3;
     padding: 40px 100px;
-}
-
-main > div {
 }
 
 main > div .main-card {
@@ -378,4 +374,142 @@ footer .logo {
     transform: skewY(7deg);
     transform-origin: left center;
     background: rgba(149, 222, 255, 0.2);
+}
+
+@media only screen and (max-width: 1200px) {
+    body {
+        font-size: 10px;
+    }
+    main {
+        padding: 20px 60px;
+    }
+    main > div .main-card {
+         padding: 10px 20px;
+     }
+    .scraping-container .main-card h1 .scraping-date-container .scraping-date {
+        margin-left: 6px;
+    }
+    .scraping-container .main-card .site-container {
+         grid-gap: 16px;
+     }
+
+    .scraping-container .main-card .site-select {
+        width: 220px;
+    }
+
+    .scraping-container .main-card .site-delete-button {
+        width: 100px;
+    }
+
+    .scraping-container .main-card .site-tags-container {
+        margin: 0 10px;
+    }
+
+    .scraping-container .main-card .site-tags-container .site-tag {
+        padding: 0 12px;
+    }
+
+    .scraping-container .main-card .site-tags-container .site-tag-all {
+        padding: 0 16px;
+    }
+
+
+    .scraping-container .email-container {
+        width: 600px;
+    }
+
+    .scraping-container .email-container .email-input {
+        padding: 0 6px;
+        width: 240px;
+    }
+
+    .scraping-container .email-container .email-send-button {
+        width: 120px;
+    }
+
+    .scraping-container .email-container .email-file-types-container .email-file-type {
+        padding: 0 14px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    body {
+        font-size: 22px;
+    }
+    main {
+        padding: 80px 140px;
+    }
+    main > div .main-card {
+        padding: 40px 80px;
+    }
+    .scraping-container .main-card h1 .scraping-date-container .scraping-date {
+        padding: 0 8px;
+        height: 40px;
+        width: 160px;
+        margin-left: 10px;
+    }
+    .scraping-container .main-card .site-container {
+         grid-gap: 40px;
+     }
+
+    .scraping-container .main-card .site-container {
+        display: grid;
+        grid-gap: 20px;
+    }
+
+    .scraping-container .main-card .site-add {
+        width: 180px;
+        height: 56px;
+    }
+
+    .scraping-container .main-card .site-select {
+        padding: 0 8px;
+        width: 280px;
+        height: 40px;
+    }
+
+    .scraping-container .main-card .site-delete-button {
+        height: 40px;
+        width: 160px;
+    }
+
+    .scraping-container .main-card .site-tags-container {
+        margin: 0 36px;
+    }
+
+    .scraping-container .main-card .site-tags-container .site-tag {
+        padding: 0 20px;
+        height: 40px;
+    }
+
+    .scraping-container .main-card .site-tags-container .site-tag-all {
+        padding: 0 26px;
+        height: 40px;
+    }
+
+    .scraping-container .email-container {
+        width: 1100px;
+    }
+
+    .scraping-container .email-container .email-input {
+        padding: 0 12px;
+        width: 340px;
+        height: 56px;
+    }
+
+    .scraping-container .email-container .email-send-button {
+        height: 56px;
+        width: 200px;
+    }
+
+    .scraping-container .email-container .email-file-types-container .email-file-type {
+        padding: 0 40px;
+        height: 56px;
+    }
+
+    .footer-description{
+        margin-left: 80px;
+        font-size: 0.8em;
+    }
+
 }

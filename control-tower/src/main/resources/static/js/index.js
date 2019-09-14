@@ -106,11 +106,12 @@ function initPage() {
                 siteTagsContainer.removeChild(siteTagsContainer.firstChild);
             }
             tagAll.classList.remove('tag-selected');
-            modelData.outputSites.find(function (item) {
+            const currentCategories = modelData.outputSites.find(function (item) {
                 return item.id === +siteSelect.value;
-            }).category.forEach(function (item) {
+            }).category;
+            Object.keys(currentCategories).sort().forEach(function (item) {
                 const newTag = document.querySelector('.scraping-container template').content.querySelector('.site-tag').cloneNode(true);
-                newTag.textContent = item;
+                newTag.textContent = currentCategories[item];
                 newTag.addEventListener('click', function () {
                     newTag.classList.toggle('tag-selected');
                     if (siteTagsContainer.querySelectorAll('.site-tag').length === siteTagsContainer.querySelectorAll('.site-tag.tag-selected').length) {
@@ -123,9 +124,9 @@ function initPage() {
             });
         });
 
-        modelData.outputSites[0].category.forEach(function (item) {
+        Object.keys(modelData.outputSites[0].category).sort().forEach(function (item) {
             const newTag = document.querySelector('.scraping-container template').content.querySelector('.site-tag').cloneNode(true);
-            newTag.textContent = item;
+            newTag.textContent = modelData.outputSites[0].category[item];
             newTag.addEventListener('click', function () {
                 newTag.classList.toggle('tag-selected');
                 if (siteTagsContainer.querySelectorAll('.site-tag').length === siteTagsContainer.querySelectorAll('.site-tag.tag-selected').length) {
@@ -160,29 +161,41 @@ function initPage() {
     });
 
     scrapingEmailSendButton.addEventListener('click', function () {
+        const outputData = JSON.parse(JSON.stringify(modelData));
+        // const outputData = Object.assign({}, modelData);
         const selectedSiteIds = [].map.call(scrapingSiteContainer.children, function (item) {
             return +item.querySelector('.site-select').value;
         });
-        const selectedSitesObjs = modelData.outputSites.filter(function (item) {
+        const selectedSitesObjs = outputData.outputSites.filter(function (item) {
             return selectedSiteIds.includes(item.id);
         });
         for (let i = 0; i < selectedSitesObjs.length; i++) {
             const selectedTags = scrapingSiteContainer.children[i].querySelectorAll('.site-tag.tag-selected');
-            selectedSitesObjs[i].category = selectedSitesObjs[i].category.filter(function (item) {
-                return true;
+            const selectedTagsValues = [].map.call(selectedTags,function (item) {
+                return item.textContent;
             });
+            for (let key in selectedSitesObjs[i].category) {
+                if (!selectedTagsValues.includes(selectedSitesObjs[i].category[key])) {
+                    delete selectedSitesObjs[i].category[key];
+                }
+            }
         }
         const selectedExports = [].map.call(scrapingContainer.querySelectorAll('.email-file-type.file-type-selected'), function (item) {
             return item.textContent;
         });
 
-
-        const outputData = Object.assign({}, modelData);
         outputData.outputSites = selectedSitesObjs;
         outputData.dateFrom = scrapingDateFrom.value;
         outputData.dateTo = scrapingDateTo.value;
         outputData.email = scrapingEmailInput.value;
         outputData.exports = selectedExports;
+        console.log(outputData);
+
+        const xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("POST", "/main/search");
+        xmlhttp.setRequestHeader("Content-Type", "application/json");
+        xmlhttp.send(JSON.stringify(outputData));
+        window.location.assign("/main/search");
     });
 }
 
