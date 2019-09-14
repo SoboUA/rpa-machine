@@ -11,6 +11,8 @@ public class SearchData {
     private boolean sendEmail;
     private String simpleText;
 
+    private List<ExportType> exportResult;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateFrom;
 
@@ -19,6 +21,7 @@ public class SearchData {
 
     public SearchData() {
     }
+
 
     public Date getDateFrom() {
         return dateFrom;
