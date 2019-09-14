@@ -9,6 +9,7 @@ public class TicketClubEvent implements IEvent {
     private String startDate;
     private String place;
     private String description;
+    private String imageLink;
 
     public TicketClubEvent(String category, String title, String startDate, String place, String description) {
         this.category = category;
@@ -67,6 +68,16 @@ public class TicketClubEvent implements IEvent {
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    @Override
+    public String getImageLink() {
+        return imageLink;
     }
 
 }

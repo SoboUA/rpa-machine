@@ -10,6 +10,7 @@ public class LvivOnlineEvent implements IEvent {
     private String startDate;
     private String place;
     private String description;
+    private String imageLink;
 
     public LvivOnlineEvent(String category, String title, String startDate, String place, String description) {
         this.category = category;
@@ -68,4 +69,15 @@ public class LvivOnlineEvent implements IEvent {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    @Override
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    @Override
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
 }
