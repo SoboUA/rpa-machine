@@ -12,12 +12,13 @@ public class LvivOnlineEvent implements IEvent {
     private String description;
     private String imageLink;
 
-    public LvivOnlineEvent(String category, String title, String startDate, String place, String description) {
+    public LvivOnlineEvent(String category, String title, String startDate, String place, String description, String imageLink) {
         this.category = category;
         this.title = title;
         this.startDate = startDate;
         this.place = place;
         this.description = description;
+        this.imageLink = imageLink;
     }
 
     @JsonProperty(value = "category")

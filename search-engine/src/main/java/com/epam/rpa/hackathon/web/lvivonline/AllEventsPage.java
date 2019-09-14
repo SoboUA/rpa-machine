@@ -41,7 +41,9 @@ public class AllEventsPage extends LvivOnlinePage {
                                 findSubElementBy(element, By.xpath(".//*[@class='title']/a")).getText(),
                                 findSubElementBy(element, By.xpath(".//*[@class='sortdate']//span[@itemprop='startDate']")).getAttribute("content"),
                                 findSubElementBy(element, By.xpath(".//*[@class='sortdate']//p[@class='place']/span")).getText(),
-                                findSubElementBy(element, By.xpath(".//*[@class='description text']")).getText())
+                                findSubElementBy(element, By.xpath(".//*[@class='description text']")).getText(),
+                                findSubElementBy(element, By.xpath(".//img[contains(@class, 'image')]")).getAttribute("src")
+                        )
                 ).collect(Collectors.toList());
 
     }

@@ -11,13 +11,13 @@ public class TicketClubEvent implements IEvent {
     private String description;
     private String imageLink;
 
-    public TicketClubEvent(String category, String title, String startDate, String place, String description) {
+    public TicketClubEvent(String category, String title, String startDate, String place, String description, String imageLink) {
         this.category = category;
         this.title = title;
         this.startDate = startDate;
         this.place = place;
         this.description = description;
-
+        this.imageLink = imageLink;
     }
 
     @Override

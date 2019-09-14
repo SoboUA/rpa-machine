@@ -16,10 +16,12 @@ public class GetTicketClubEventsAction implements IGetEventsAction {
         WebDriver webDriver = new TicketClubWebDriverProvider().getDriver();
         try {
             TicketClubHomePage ticketClubPage = new TicketClubHomePage(webDriver);
-            ticketClubPage.selectLvivCity()
+            return ticketClubPage.selectLvivCity()
                     .selectAllLocations()
-                    .setDateFrom(LocalDate.now());
-            return new ArrayList<>();
+                    .setDateFrom(LocalDate.now())
+                    .setDateTo(LocalDate.now().withDayOfMonth(30))
+                    .getAllEventsFromSite();
+
         } finally {
             webDriver.close();
         }

@@ -2,8 +2,6 @@ package com.epam.rpa.hackathon.web.ticketclub;
 
 import com.epam.rpa.hackathon.property.Property;
 import com.epam.rpa.hackathon.util.PropertyUtil;
-import com.epam.rpa.hackathon.web.IEvent;
-import com.epam.rpa.hackathon.web.lvivonline.model.LvivOnlineEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,6 +10,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +36,21 @@ public class TicketClubHomePage extends TicketClubPage {
     //    @Value("${ticket.club.homepage}")
 //    private String homePageUrl;
     private String homePageUrl = PropertyUtil.getProperty(Property.TICKET_CLUB_HOMEPAGE);
+
+    @FindBy(xpath = "//*[@class='categories']//*[contains(text(), 'Музика')]")
+    private WebElement musicCategory;
+
+    @FindBy(xpath = "//*[@class='categories']//*[contains(text(), 'Театр')]")
+    private WebElement theatreCategory;
+
+    @FindBy(xpath = "//*[@class='categories']//*[contains(text(), 'Кіно')]")
+    private WebElement movieCategory;
+
+    @FindBy(xpath = "//*[@class='categories']//*[contains(text(), 'Дітям')]")
+    private WebElement forChildrenCategory;
+
+    @FindBy(xpath = "//*[@class='categories']//*[contains(text(), 'Інше')]")
+    private WebElement otherCategory;
 
     @FindBy(xpath = "//*[@class='filter-item city']//*[@class='btn-select btn-select-img']")
     private WebElement cityDropdown;
@@ -89,6 +103,67 @@ public class TicketClubHomePage extends TicketClubPage {
         return this;
     }
 
+    public List<TicketClubEvent> getAllEventsFromSite() {
+        List<TicketClubEvent> events = new ArrayList<>();
+        events.addAll(this.getMusicEvents());
+        events.addAll(this.getTheatreEvents());
+        events.addAll(this.getMovieEvents());
+        events.addAll(this.getForChildrenEvents());
+        events.addAll(this.getOtherEvents());
+        return events;
+    }
+
+    public List<TicketClubEvent> getMusicEvents() {
+
+        musicCategory.click();
+        return this.getAllEventsFromPages(TicketClubCategory.MUSIC);
+    }
+
+    public List<TicketClubEvent> getTheatreEvents() {
+
+        theatreCategory.click();
+        return this.getAllEventsFromPages(TicketClubCategory.THEATRE);
+    }
+
+    public List<TicketClubEvent> getMovieEvents() {
+
+        movieCategory.click();
+        return this.getAllEventsFromPages(TicketClubCategory.MOVIE);
+    }
+
+    public List<TicketClubEvent> getForChildrenEvents() {
+
+        forChildrenCategory.click();
+        return this.getAllEventsFromPages(TicketClubCategory.FOR_CHILDREN);
+    }
+
+    public List<TicketClubEvent> getOtherEvents() {
+
+        otherCategory.click();
+        return this.getAllEventsFromPages(TicketClubCategory.OTHER);
+    }
+
+    public List<TicketClubEvent> getAllEventsFromPages(TicketClubCategory category) {
+        List<TicketClubEvent> events = new ArrayList<>();
+
+        do {
+            events.addAll(allEvents.stream()
+                    .map(element -> {
+                        return new TicketClubEvent(category.toString(),
+                                findSubElementBy(element, By.xpath(".//*[@class='title']")).getText().trim(),
+                                findSubElementBy(element, By.xpath("//*[@class='event-wrap']//*[@class='date']")).getText()
+                                        .replaceAll("[а-яА-Я]|\\s|[a-zA-Z]", "") +
+                                        " " +
+                                        findSubElementBy(element, By.xpath(".//*[@class='time']")).getText().trim(),
+                                findSubElementBy(element, By.xpath(".//a[contains(@href, 'location')]")).getText().trim(),
+                                findSubElementBy(element, By.xpath(".//*[@class='descr']/p")).getText().trim(),
+                                findSubElementBy(element, By.xpath(".//img[@class='img-event']")).getAttribute("src")
+                        );
+                    }).collect(Collectors.toList()));
+        } while (goToNextPage());
+        return events;
+    }
+
     public TicketClubHomePage setDateFrom(LocalDate date) {
         dateFrom.click();
         date = this.defaultIfFromPast(date, LocalDate.now());
@@ -99,30 +174,23 @@ public class TicketClubHomePage extends TicketClubPage {
                     By.xpath("//*[@id='filter-datepicker']//*[@class='ui-datepicker-calendar']//a[text()='" + date.getDayOfMonth() + "']"))
                     .click();
         }
-
         //TODO Implement case when current month is not one we need
 
         return this;
-    }
-
-    public List<TicketClubEvent> getAllEventsFromPage() {
-
-        return allEvents.stream()
-                .map(element ->
-                        new TicketClubEvent(findSubElementBy(element, By.xpath(".//*[@class='category-name']/a")).getText(),
-                                findSubElementBy(element, By.xpath(".//*[@class='title']/a")).getText(),
-                                findSubElementBy(element, By.xpath(".//*[@class='sortdate']//span[@itemprop='startDate']")).getAttribute("content"),
-                                findSubElementBy(element, By.xpath(".//*[@class='sortdate']//p[@class='place']/span")).getText(),
-                                findSubElementBy(element, By.xpath(".//*[@class='description text']")).getText())
-                ).collect(Collectors.toList());
     }
 
     public TicketClubHomePage setDateTo(LocalDate date) {
         dateTo.click();
         date = this.defaultIfFromPast(date, LocalDate.now());
 
-        if (StringUtils.equalsIgnoreCase(months.get(date.getMonthValue()), dateFromMonth.getText()) &&
-                Integer.parseInt(dateFromYear.getText()) == date.getYear()) {
+        if (StringUtils.equalsIgnoreCase(months.get(date.getMonthValue()), dateToMonth.getText()) &&
+                Integer.parseInt(dateToYear.getText()) == date.getYear()) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             driver.findElement(
                     By.xpath("//*[@id='filter-datepicker-2']//*[@class='ui-datepicker-calendar']//a[text()='" + date.getDayOfMonth() + "']"))
                     .click();
@@ -137,4 +205,15 @@ public class TicketClubHomePage extends TicketClubPage {
         return date.isAfter(LocalDate.now()) ? date : defaultDate;
     }
 
+    private boolean goToNextPage() {
+        boolean active = true;
+        try {
+            driver.findElement(By.xpath("//*[@class='pagination-custom']//a[@rel='next']")).click();
+        } catch (Exception e) {
+            active = false;
+        }
+        return active;
+
+    }
 }
+
