@@ -18,6 +18,7 @@ import org.thymeleaf.util.StringUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -43,6 +44,35 @@ public class GastroliUaHomePage extends GastroliUaPage {
         driver.get(homePageUrl);
     }
 
+    public List<GastroliEvent> getEvents(){
+        exploreAllEvents();
+
+        List<String> links = scrapEventLinks();
+
+        System.out.println(links);
+
+        return links.stream()
+                .limit(5)
+                .map(this::processEvent)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+    public GastroliEvent processEvent(String link){
+
+        GastroliEvent event = null;
+
+        try{
+            driver.get(link);
+            event = new GastroliEventPage(driver).returnEvent();
+            logger.warn("Event : " + event.toString());
+        }catch (Exception e){
+            logger.warn(e.getMessage());
+        }
+
+        return event;
+    }
+
     public GastroliUaHomePage setup() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -59,8 +89,35 @@ public class GastroliUaHomePage extends GastroliUaPage {
         return this;
     }
 
-    public void scrapEventLinks(){
+    public List<String> scrapEventLinks(){
+        List<WebElement> allEvents = driver.findElements(By.xpath("//a[@class='list-item-image']"));
 
+        return allEvents.stream()
+                .map(element -> element.getAttribute("href"))
+                .collect(Collectors.toList());
+    }
+
+    private void exploreAllEvents() {
+
+        int count = 0;
+        int limit = 200;
+
+        while (true) {
+            if (++count > limit) {
+                logger.warn("Limit");
+                break;
+            }
+
+            logger.warn("New More button press cycle");
+
+            try {
+                WebElement more = driver.findElement(By.xpath("//div[contains(text(), 'Показано')]"));
+                more.click();
+            } catch (Exception e) {
+                logger.warn("Can`t find More button");
+                break;
+            }
+        }
     }
 
 }
