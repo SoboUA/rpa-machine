@@ -8,7 +8,8 @@ public enum Property {
 
     WEBDRIVER_CHROME_DRIVER("webdriver.chrome.driver"),
     LVIV_ONLINE_HOMEPAGE("lviv.online.homepage"),
-    TICKET_CLUB_HOMEPAGE("ticket.club.homepage");
+    TICKET_CLUB_HOMEPAGE("ticket.club.homepage"),
+    GASTROLI_UA_HOMEPAGE("gastroli.ua.homepage");
 
     private String value;
 

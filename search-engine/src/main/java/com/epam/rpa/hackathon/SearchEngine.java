@@ -1,5 +1,8 @@
 package com.epam.rpa.hackathon;
 
+import com.epam.rpa.hackathon.web.gastroli.GetGastroliUaEventsAction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.epam.rpa.hackathon.web.ticketclub.GetTicketClubEventsAction;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
