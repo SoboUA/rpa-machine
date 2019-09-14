@@ -19,7 +19,7 @@ public class ResultObject {
 
 
     public Map<Integer, String> convertToMap() {
-        List<String> listFields = Arrays.asList(item, quantity, skunumber, location, toWarehouse, fromWarehouse, order, status, failureReason);
+        List<String> listFields = Arrays.asList();
 
 
         return IntStream.range(0, listFields.size())
