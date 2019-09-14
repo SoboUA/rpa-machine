@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hackathon</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap&subset=cyrillic,cyrillic-ext"
+          rel="stylesheet">
+    <link rel='stylesheet' href='/css/index.css'/>
+</head>
+<body>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const modelData = [[${allSites}]];
+    /*]]>*/
+</script>
+
+<div class="header-bg-shapes">
+    <div></div>
+    <div></div>
+</div>
+
+<div class="main-wrapper">
+    <header>
+        <a href="#home" class="logo-container">
+            <img class="logo" src="/img/logo.lviv.svg">
+        </a>
+        <menu>
+            <li><a href="#scraping">Збір даних</a></li>
+            <li><a href="#merging">Консолідація</a></li>
+            <li><a href="#emails">Відправка емейлів</a></li>
+            <li><a href="#calculating">Обчислення</a></li>
+            <li><a href="#help">Допомога</a></li>
+            <li><a href="#contacts">Контакти</a></li>
+        </menu>
+    </header>
+
+    <main>
+        <div class="home-container display-none">
+            <section class="main-card">
+                Цей сервіс створений з метою спростити життя працівникам Львівської міської ради.
+            </section>
+        </div>
+
+        <div class="scraping-container">
+            <section class="main-card">
+                <h1>Автоматизований збір даних з інтернет-сайтів
+                    <div class="scraping-date-container">
+                        <label>Від <input class="scraping-date" type="date"></label>
+                        <label>До <input class="scraping-date" type="date"></label>
+                    </div>
+                </h1>
+
+                <div class="site-container"></div>
+
+                <div class="site-add">Додати сайт</div>
+            </section>
+
+            <div class="main-card email-container">
+                <label><input class="email-input" type="email" placeholder="Ваш емейл"></label>
+                <div class="email-file-types-container">
+                    <div class="email-file-type">PDF</div>
+                    <div class="email-file-type">EXCEL</div>
+                </div>
+                <div class="email-send-button">Відправити</div>
+            </div>
+
+            <template>
+                <div class="site-item">
+                    <label><select class="site-select">
+                        <option th:each="site : ${allSites.outputSites}" th:text="${site.url}" th:value="${site.id}"/>
+                    </select></label>
+                    <div class="site-tags-container">
+                        <div class="site-tag-all">Всі</div>
+                    </div>
+                    <div class="site-delete-button">Видалити</div>
+                </div>
+                <!--                        <div class="site-tag">Фестивалі</div>-->
+                <!--                        <div class="site-tag">Конференції</div>-->
+                <!--                        <div class="site-tag">Концерти</div>-->
+                <!--                        <div class="site-tag">Виставки</div>-->
+                <!--                        <div class="site-tag">Інше</div>-->
+                <div class="site-tag"></div>
+            </template>
+        </div>
+
+        <div class="merging-container display-none">
+            <section class="main-card">
+                У розробці...
+            </section>
+        </div>
+
+        <div class="emails-container display-none">
+            <section class="main-card">
+                У розробці...
+            </section>
+        </div>
+
+        <div class="calculating-container display-none">
+            <section class="main-card">
+                У розробці...
+            </section>
+        </div>
+
+        <div class="help-container display-none">
+            <section class="main-card">
+                У розробці...
+            </section>
+        </div>
+
+        <div class="contacts-container display-none">
+            <section class="main-card">
+                У розробці...
+            </section>
+        </div>
+    </main>
+</div>
+
+<footer>
+    <div class="logo-container">
+        <img class="logo" src="/img/logo2.svg"/>
+    </div>
+    <div class="footer-description">
+        <p>1356-2019 © Львівська міська рада.</p>
+        <p>2019 © Технічне забезпечення &lt;EPAM&gt;</p>
+    </div>
+</footer>
+
+<div class="footer-bg-shapes">
+    <div></div>
+    <div></div>
+</div>
+
+<script src='/js/index.js'></script>
+
+</body>
+</html>
