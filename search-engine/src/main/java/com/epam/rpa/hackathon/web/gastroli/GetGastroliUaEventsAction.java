@@ -29,6 +29,7 @@ public class GetGastroliUaEventsAction implements IGetEventsAction {
                     gastroliPage.setDataRange(from, to);
 
                     list = gastroliPage.setup().getEvents();
+                    System.out.println("After scrapping : " + list.toString());
                     break;
                 } catch (Exception e) {
                     System.out.println("On reattempt : " + e.getMessage());
@@ -47,5 +48,12 @@ public class GetGastroliUaEventsAction implements IGetEventsAction {
     @Override
     public String getEventsJson() {
         return JsonUtil.toStringRepresentation(this.getEvents());
+    }
+
+    @Override
+    public String getEventsJson(LocalDate dateFrom, LocalDate dateTo) {
+        String json = JsonUtil.toStringRepresentation(this.getEventsForPeriod(dateFrom, dateTo));
+        System.out.println("In get Json : " + json);
+        return json;
     }
 }

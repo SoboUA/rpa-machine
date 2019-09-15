@@ -32,4 +32,13 @@ public class GetLvivOnlineEventsAction implements IGetEventsAction {
         return this.getEvents();
     }
 
+    @Override
+    public String getEventsJson() {
+        return JsonUtil.toStringRepresentation(getEvents());
+    }
+
+    @Override
+    public String getEventsJson(LocalDate dateFrom, LocalDate dateTo) {
+        return JsonUtil.toStringRepresentation(getEventsForPeriod(dateFrom, dateTo));
+    }
 }

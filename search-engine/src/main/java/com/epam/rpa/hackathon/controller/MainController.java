@@ -37,6 +37,7 @@ public class MainController {
 
 //        List<IEvent> eventList = eventsAction.getEventsForPeriod(siteData.getDateFrom(), siteData.getDateTo());
         String eventsJson = eventsAction.getEventsJson(siteData.getDateFrom(), siteData.getDateTo());
+        System.out.println("After json " + eventsJson);
         List<Event> eventList = new EventConverter().convertToEventList(eventsJson);
 
 

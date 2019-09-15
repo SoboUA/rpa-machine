@@ -1,6 +1,7 @@
 package com.epam.rpa.hackathon.web.ticketclub;
 
 import com.epam.rpa.hackathon.property.SiteNames;
+import com.epam.rpa.hackathon.util.JsonUtil;
 import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.IGetEventsAction;
 import com.epam.rpa.hackathon.web.lvivonline.LvivOnlineHomePage;
@@ -43,4 +44,13 @@ public class GetTicketClubEventsAction implements IGetEventsAction {
         }
     }
 
+    @Override
+    public String getEventsJson() {
+        return JsonUtil.toStringRepresentation(this.getEvents());
+    }
+
+    @Override
+    public String getEventsJson(LocalDate dateFrom, LocalDate dateTo) {
+        return JsonUtil.toStringRepresentation(this.getEventsForPeriod(dateFrom, dateTo));
+    }
 }
