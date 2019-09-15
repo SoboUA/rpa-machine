@@ -7,8 +7,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -93,8 +97,18 @@ public class TicketClubHomePage extends TicketClubPage {
     }
 
     public TicketClubHomePage selectLvivCity() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+
+        /*Actions action = new Actions(driver);
+        action.moveToElement(cityDropdown).perform();*/
+
+        driver.findElement(By.xpath("//*[@class='filter-item city']//*[@class='btn-select btn-select-img']"));
         cityDropdown.click();
-        lvivCitySelector.click();
+        //wait.until(ExpectedConditions.visibilityOf(cityDropdown)).click();
+        wait.until(ExpectedConditions.visibilityOf(lvivCitySelector)).click();
+
+        /*cityDropdown.click();
+        lvivCitySelector.click();*/
         return this;
     }
 

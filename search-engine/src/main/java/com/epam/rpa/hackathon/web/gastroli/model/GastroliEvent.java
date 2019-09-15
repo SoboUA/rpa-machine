@@ -17,13 +17,13 @@ public class GastroliEvent implements IEvent {
     private String description;
     private String imageLink;
 
-    public GastroliEvent(String category, String title, String startDate, String place, String description, String image) {
+    public GastroliEvent(String category, String title, String startDate, String place, String description, String imageLink) {
         this.category = category;
         this.title = title;
         this.startDate = startDate;
         this.place = place;
         this.description = description;
-        this.imageLink = image;
+        this.imageLink = imageLink;
     }
 
 
@@ -77,12 +77,12 @@ public class GastroliEvent implements IEvent {
         this.description = description;
     }
 
-    @JsonProperty(value = "image")
+    @JsonProperty(value = "imageLink")
     public String getImageLink() {
         return imageLink;
     }
 
-    @JsonProperty(value = "image")
+    @JsonProperty(value = "imageLink")
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
     }
