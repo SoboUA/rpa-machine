@@ -9,14 +9,15 @@ public class TicketClubEvent implements IEvent {
     private String startDate;
     private String place;
     private String description;
+    private String imageLink;
 
-    public TicketClubEvent(String category, String title, String startDate, String place, String description) {
+    public TicketClubEvent(String category, String title, String startDate, String place, String description, String imageLink) {
         this.category = category;
         this.title = title;
         this.startDate = startDate;
         this.place = place;
         this.description = description;
-
+        this.imageLink = imageLink;
     }
 
     @Override
@@ -71,12 +72,12 @@ public class TicketClubEvent implements IEvent {
 
     @Override
     public void setImageLink(String imageLink) {
-
+        this.imageLink = imageLink;
     }
 
     @Override
     public String getImageLink() {
-        return null;
+        return imageLink;
     }
 
 }

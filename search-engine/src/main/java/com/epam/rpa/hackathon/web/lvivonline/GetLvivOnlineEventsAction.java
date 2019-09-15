@@ -1,6 +1,7 @@
 package com.epam.rpa.hackathon.web.lvivonline;
 
 import com.epam.rpa.hackathon.property.SiteNames;
+import com.epam.rpa.hackathon.util.JsonUtil;
 import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.IGetEventsAction;
 import org.openqa.selenium.WebDriver;
@@ -13,7 +14,7 @@ import java.util.List;
 public class GetLvivOnlineEventsAction implements IGetEventsAction {
 
     @Override
-    public List<? extends IEvent> getEvents() {
+    public List<IEvent> getEvents() {
 
         WebDriver webDriver = new LvivOnlineWebDriverProvider().getDriver();
         try {
@@ -28,12 +29,7 @@ public class GetLvivOnlineEventsAction implements IGetEventsAction {
 
     @Override
     public List<IEvent> getEventsForPeriod(LocalDate dateFrom, LocalDate dateTo) {
-        return null;
-    }
-
-    @Override
-    public String getEventsJson() {
-        return null;
+        return this.getEvents();
     }
 
 }

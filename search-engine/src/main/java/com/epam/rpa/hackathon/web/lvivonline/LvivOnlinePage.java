@@ -12,7 +12,7 @@ public abstract class LvivOnlinePage {
 
     protected WebDriver driver;
     private static final TimeUnit DEFAULT_TIME_UNIT = TimeUnit.SECONDS;
-    private static final long DEFAULT_TIMEOUT = 20;
+    private static final long DEFAULT_TIMEOUT = 30;
 
     public LvivOnlinePage(WebDriver driver) {
         this.driver = driver;

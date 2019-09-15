@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +32,6 @@ public class MainController {
 
         String siteToProcess = siteData.getSiteId();
         IGetEventsAction eventsAction = eventsActionMap.get(siteToProcess);
-
-        String eventsJson = eventsAction.getEventsJson();
 
         List<IEvent> eventList = eventsAction.getEventsForPeriod(siteData.getDateFrom(), siteData.getDateTo());
 

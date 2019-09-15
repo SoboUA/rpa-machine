@@ -8,13 +8,9 @@ import java.util.List;
 
 public interface IGetEventsAction {
 
-    List<? extends IEvent> getEvents();
+    List<IEvent> getEvents();
 
     List<IEvent> getEventsForPeriod(LocalDate dateFrom, LocalDate dateTo);
-
-    //List<? extends IEvent> getEvents(String from, String to, );
-
-//    String getEventsJson();
 
     default String getEventsJson() {
         return JsonUtil.toStringRepresentation(this.getEvents());

@@ -10,7 +10,7 @@ public abstract class TicketClubPage {
 
     protected WebDriver driver;
     private static final TimeUnit DEFAULT_TIME_UNIT = TimeUnit.SECONDS;
-    private static final long DEFAULT_TIMEOUT = 20;
+    private static final long DEFAULT_TIMEOUT = 3;
 
     public TicketClubPage(WebDriver driver) {
         this.driver = driver;

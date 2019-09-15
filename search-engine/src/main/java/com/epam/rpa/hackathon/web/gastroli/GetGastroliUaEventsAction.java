@@ -8,13 +8,12 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Component(SiteNames.GASTROLI)
 public class GetGastroliUaEventsAction implements IGetEventsAction {
     @Override
-    public List<? extends IEvent> getEvents() {
+    public List<IEvent> getEvents() {
         return null;
     }
 

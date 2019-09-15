@@ -10,13 +10,15 @@ public class LvivOnlineEvent implements IEvent {
     private String startDate;
     private String place;
     private String description;
+    private String imageLink;
 
-    public LvivOnlineEvent(String category, String title, String startDate, String place, String description) {
+    public LvivOnlineEvent(String category, String title, String startDate, String place, String description, String imageLink) {
         this.category = category;
         this.title = title;
         this.startDate = startDate;
         this.place = place;
         this.description = description;
+        this.imageLink = imageLink;
     }
 
     @JsonProperty(value = "category")
@@ -70,12 +72,13 @@ public class LvivOnlineEvent implements IEvent {
     }
 
     @Override
-    public void setImageLink(String imageLink) {
-
+    public String getImageLink() {
+        return imageLink;
     }
 
     @Override
-    public String getImageLink() {
-        return null;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
+
 }
