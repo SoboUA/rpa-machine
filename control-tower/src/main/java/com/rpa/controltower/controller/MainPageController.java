@@ -122,12 +122,16 @@ public class MainPageController {
 
 
         List<SiteData> data = requestData.getData();
+        data.forEach(d -> System.out.println("data: " + d));
         for (int i = 0; i < data.size(); i++) {
+            System.out.println("here1");
             WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
                     .uri(searchEngineUrl)
                     .body(BodyInserters.fromObject(data.get(i)));
+            System.out.println("here2");
 
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
+            System.out.println("here3");
             resultObjectMono.subscribe(e -> {
                 tempDatastore.append(e);
                 if (data.size() == tempDatastore.getSize()) {
@@ -141,6 +145,7 @@ public class MainPageController {
                     sendMail(workbook, scrappingFormData.getEmail());
                 }
             });
+            System.out.println("here4");
         }
 
         return "redirect:/main/search";

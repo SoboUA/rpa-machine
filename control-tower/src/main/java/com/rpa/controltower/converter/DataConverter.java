@@ -15,7 +15,7 @@ public class DataConverter {
 
         List<SiteData> siteData = data.getSites().stream()
                 .filter(StringUtils::isNotBlank)
-                .map(e -> new SiteData(e, data.getSimpleText(), data.getDateFrom(), data.getDateTo()))
+                .map(e -> new SiteData())
                 .collect(Collectors.toList());
 
         return new CTRequestData(siteData);

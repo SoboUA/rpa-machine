@@ -3,6 +3,8 @@ package com.rpa.controltower.model.input;
 import com.rpa.controltower.model.ui.Site;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
@@ -12,26 +14,26 @@ public class SiteData {
     private String siteUrl;
 
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateFrom;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateFrom;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateTo;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateTo;
 
     public SiteData() {
     }
 
-    public SiteData(String site, String simpleText, Date dateFrom, Date dateTo) {
-        this.siteId = site;
-        this.siteUrl = simpleText;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
-    }
+//    public SiteData(String site, String simpleText, Date dateFrom, Date dateTo) {
+//        this.siteId = site;
+//        this.siteUrl = simpleText;
+//        this.dateFrom = dateFrom;
+//        this.dateTo = dateTo;
+//    }
     public SiteData(Site info,Date dateFrom,Date dateTo) {
         this.siteId = info.getId().toString();
         this.siteUrl = info.getUrl();
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
+        this.dateFrom =dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        this.dateTo = dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     public String getSiteId() {
@@ -50,19 +52,19 @@ public class SiteData {
         this.siteUrl = siteUrl;
     }
 
-    public Date getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
-    public void setDateFrom(Date dateFrom) {
+    public void setDateFrom(LocalDate dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public Date getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
-    public void setDateTo(Date dateTo) {
+    public void setDateTo(LocalDate dateTo) {
         this.dateTo = dateTo;
     }
 
