@@ -148,9 +148,9 @@ public class MainPageController {
                     int size = tempDatastore.getResultObjects().size();
                     System.out.println("size: " + size);
 
-                    Workbook workbook = saveDataToExcel(tempDatastore);
+                   saveDataToExcel(tempDatastore);
 
-                    sendMail(workbook, scrappingFormData.getEmail());
+//                    sendMail(workbook, scrappingFormData.getEmail());
                 }
             });
         }
@@ -239,16 +239,25 @@ public class MainPageController {
 
     }
 
-    public Workbook saveDataToExcel(TempDatastore datastores) {
+    public void saveDataToExcel(TempDatastore datastores) {
         List<ResultObject> resultObjects = datastores.getResultObjects();
         System.out.println("inside excel Working");
         Workbook xssfWorkbook = new XSSFWorkbook();
         new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
         new ExcelStyle().setStyle(xssfWorkbook);
         System.out.println("excel finished");
-        return xssfWorkbook;
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream("src\\main\\resources\\output\\file.xlsx");
+            xssfWorkbook.write(out);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        //method();
+
+
+
     }
 
 }
