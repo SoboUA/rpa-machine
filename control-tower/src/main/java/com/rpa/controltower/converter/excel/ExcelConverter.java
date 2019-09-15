@@ -6,6 +6,7 @@ import com.rpa.controltower.util.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.Arrays;
@@ -23,12 +24,16 @@ public class ExcelConverter {
             sheetNames.put("1", "Lviv Online");
             sheetNames.put("2", "Gastroli");
             sheetNames.put("4", "Ticket Club");
+            HashMap<String, Integer> sheetColor = new HashMap<>();
+            sheetColor.put("1", 10);
+            sheetColor.put("2", 17);
+            sheetColor.put("4", 20);
             Sheet workingSheet = workbook.createSheet(sheetNames.get(resultObject.getSiteData().getSiteId()));
 
 
-            ((XSSFSheet) workingSheet).setTabColor(Integer.valueOf(resultObject.getSiteData().getSiteId()));
+            ((XSSFSheet) workingSheet).setTabColor(sheetColor.get(resultObject.getSiteData().getSiteId()));
             //Hardcoded headers
-            List<String> headers = Arrays.asList("Назва",  "Дата івенту", "Категорії", "Місце проведення", "Посилання на картинку","Опис");
+            List<String> headers = Arrays.asList("Назва", "Дата івенту", "Категорії", "Місце проведення", "Посилання на картинку", "Опис");
 
             Map<Integer, String> headersMap = IntStream.range(0, headers.size())
                     .boxed()

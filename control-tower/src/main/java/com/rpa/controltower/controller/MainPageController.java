@@ -122,13 +122,13 @@ public class MainPageController {
         ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service0");
         String searchEngineUr0 = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
         ServiceInstance serviceEngineInstance1 = loadBalancerClient.choose("engine-service1");
-//        String searchEngineUr1 = "http://" + serviceEngineInstance1.getHost() + ":" + serviceEngineInstance1.getPort() + "/processEvents";
-//        ServiceInstance serviceEngineInstance2 = loadBalancerClient.choose("engine-service2");
-//        String searchEngineUr2 = "http://" + serviceEngineInstance2.getHost() + ":" + serviceEngineInstance2.getPort() + "/processEvents";
-//        List<String> allUrls = Arrays.asList(searchEngineUrl, searchEngineUr1, searchEngineUr2);
-        List<String> allUrls = Arrays.asList(searchEngineUr0);
+        String searchEngineUr1 = serviceEngineInstance1 != null ? "http://" + serviceEngineInstance1.getHost() + ":" + serviceEngineInstance1.getPort() + "/processEvents" : searchEngineUr0;
+        ServiceInstance serviceEngineInstance2 = loadBalancerClient.choose("engine-service2");
+        String searchEngineUr2 = serviceEngineInstance2 != null ? "http://" + serviceEngineInstance2.getHost() + ":" + serviceEngineInstance2.getPort() + "/processEvents" : searchEngineUr1;
+        List<String> allUrls = Arrays.asList(searchEngineUr0, searchEngineUr1, searchEngineUr2);
         System.out.println("URL: " + searchEngineUr0);
-//        System.out.println("URL: " + searchEngineUr1);
+        System.out.println("URL: " + searchEngineUr1);
+        System.out.println("URL: " + searchEngineUr2);
 
 
         List<SiteData> data = requestData.getData();
@@ -140,7 +140,7 @@ public class MainPageController {
 
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
             resultObjectMono.subscribe(e -> {
-                System.out.println("Inside subscribe"+e);
+                System.out.println("Inside subscribe" + e);
                 tempDatastore.append(e);
                 if (data.size() == tempDatastore.getSize()) {
                     System.out.println("INTO for");
@@ -159,6 +159,7 @@ public class MainPageController {
     }
 
     public void sendMail(Workbook workbook, String email) {
+        System.out.println("Sending Email");
         FileOutputStream out = null;
         try {
             out = new FileOutputStream("C:\\Users\\Roman_Sobolevskyi\\Desktop\\newFile23234.xlsx");
@@ -244,6 +245,7 @@ public class MainPageController {
         Workbook xssfWorkbook = new XSSFWorkbook();
         new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
         new ExcelStyle().setStyle(xssfWorkbook);
+        System.out.println("excel finished");
         return xssfWorkbook;
 
         //method();

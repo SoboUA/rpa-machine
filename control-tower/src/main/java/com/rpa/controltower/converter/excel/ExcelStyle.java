@@ -86,12 +86,17 @@ public class ExcelStyle {
 
                     Cell currentCell = Objects.nonNull(currentRow.getCell(j)) ? currentRow.getCell(j) : currentRow.createCell(j);
                     CellStyle style = workbook.createCellStyle();
+
+                    if (j == 1) {
+                        String s = dataFormat.formatCellValue(currentCell).replaceAll("T", " ");
+                        currentCell.setCellValue(s);
+                    }
                     if (i == 0) {
                         currentRow.setHeight((short) 800);
                         currentCell.setCellStyle(headerStyle);
                     } else {
                         style.cloneStyleFrom(leftAlignLStyle);
-                            style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
+                        style.setFillForegroundColor(IndexedColors.WHITE.getIndex());
                         style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
                         currentCell.setCellStyle(style);
                     }
