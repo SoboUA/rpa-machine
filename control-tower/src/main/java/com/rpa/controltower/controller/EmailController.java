@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -13,38 +15,32 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-@Component
+@RestController
 public class EmailController {
 
-//    @Autowired
-//    JavaMailSender javaMailSender;
+    @Autowired
+    JavaMailSender javaMailSender;
 
-    public void sendEmail(String to, Workbook workbook){
-//        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//        try {
-//            workbook.write(bos);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                bos.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        byte[] excelBytes = bos.toByteArray();
-//        ByteArrayDataSource
-//        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-//        try {
-//            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-//            helper.setTo(to);
-//            helper.setSubject("Test run");
-//            helper.setText("<h3>See attachment below</h3>", true);
-//            helper.addAttachment("events_excel", excelBytes);
-//        } catch (MessagingException e) {
-//            System.out.println("error in message");
-//            e.printStackTrace();
-//        }
-//
+    public String sendMail() {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        try {
+            helper.setTo("set-your-recipient-email-here@gmail.com");
+            helper.setText("How are you?");
+            helper.setSubject("Hi");
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        javaMailSender.send(message);
+
+        return "11";
+    }
+
+    @GetMapping("/send")
+    public String sendEmail() {
+        sendMail();
+        return "hello";
     }
 }
