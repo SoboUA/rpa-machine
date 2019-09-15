@@ -83,6 +83,7 @@ public class ExcelStyle {
 
                     sheet.autoSizeColumn(j);
 
+
                     Cell currentCell = Objects.nonNull(currentRow.getCell(j)) ? currentRow.getCell(j) : currentRow.createCell(j);
                     CellStyle style = workbook.createCellStyle();
                     if (i == 0) {

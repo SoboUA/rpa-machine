@@ -1,4 +1,4 @@
-package com.rpa.controltower.model;
+package com.rpa.controltower.model.result;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -36,7 +36,7 @@ public interface IEvent {
 
     default Map<Integer, String> convertToMap() {
 
-        List<String> listFields = Arrays.asList(getTitle(), getDescription(), getStartDate(), getCategory(), getPlace(), getImageLink());
+        List<String> listFields = Arrays.asList(getTitle(), getStartDate(), getCategory(), getPlace(), getImageLink(), getDescription());
 
 
         return IntStream.range(0, listFields.size())

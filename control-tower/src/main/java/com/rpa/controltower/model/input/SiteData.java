@@ -1,9 +1,11 @@
 package com.rpa.controltower.model.input;
 
 import com.rpa.controltower.model.ui.Site;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -14,10 +16,10 @@ public class SiteData {
     private String siteUrl;
 
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFrom;
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
 
     public SiteData() {
@@ -34,6 +36,12 @@ public class SiteData {
         this.siteUrl = info.getUrl();
         this.dateFrom =dateFrom.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         this.dateTo = dateTo.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+    public SiteData(Site info, LocalDate dateFrom, LocalDate dateTo) {
+        this.siteId = info.getId().toString();
+        this.siteUrl = info.getUrl();
+        this.dateFrom =dateFrom;
+        this.dateTo = dateTo;
     }
 
     public String getSiteId() {

@@ -1,13 +1,15 @@
-package com.rpa.controltower.converter;
+package com.rpa.controltower.converter.excel;
 
-import com.rpa.controltower.model.IEvent;
+import com.rpa.controltower.model.result.IEvent;
 import com.rpa.controltower.model.ResultObject;
 import com.rpa.controltower.util.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -17,10 +19,16 @@ public class ExcelConverter {
     public Workbook fillWorkbook(Workbook workbook, List<ResultObject> orders) {
         for (int i = 0; i < orders.size(); i++) {
             ResultObject resultObject = orders.get(i);
-            Sheet workingSheet = workbook.createSheet(resultObject.getSiteData().getSiteId());
+            HashMap<String, String> sheetNames = new HashMap<>();
+            sheetNames.put("1", "Lviv Online");
+            sheetNames.put("2", "Gastroli");
+            sheetNames.put("4", "Ticket Club");
+            Sheet workingSheet = workbook.createSheet(sheetNames.get(resultObject.getSiteData().getSiteId()));
 
+
+            ((XSSFSheet) workingSheet).setTabColor(Integer.valueOf(resultObject.getSiteData().getSiteId()));
             //Hardcoded headers
-            List<String> headers = Arrays.asList("Назва", "Опис", "Дата івенту", "Категорії", "Місце проведення", "Посилання на картинку");
+            List<String> headers = Arrays.asList("Назва",  "Дата івенту", "Категорії", "Місце проведення", "Посилання на картинку","Опис");
 
             Map<Integer, String> headersMap = IntStream.range(0, headers.size())
                     .boxed()

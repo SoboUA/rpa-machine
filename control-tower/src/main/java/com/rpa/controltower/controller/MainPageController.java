@@ -2,7 +2,8 @@ package com.rpa.controltower.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rpa.controltower.converter.DataConverter;
-import com.rpa.controltower.converter.ExcelConverter;
+import com.rpa.controltower.converter.excel.ExcelConverter;
+import com.rpa.controltower.converter.excel.ExcelStyle;
 import com.rpa.controltower.datastore.TempDatastore;
 import com.rpa.controltower.model.*;
 import com.rpa.controltower.model.input.CTRequestData;
@@ -28,6 +29,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import javax.servlet.ServletRequest;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -116,23 +118,29 @@ public class MainPageController {
         System.out.println("requestData.getData(): " + requestData.getData());
 
         //Load Balancing
-        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service");
-        String searchEngineUrl = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
-        System.out.println("URL: " + searchEngineUrl);
+
+        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service0");
+        String searchEngineUr0 = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
+        ServiceInstance serviceEngineInstance1 = loadBalancerClient.choose("engine-service1");
+//        String searchEngineUr1 = "http://" + serviceEngineInstance1.getHost() + ":" + serviceEngineInstance1.getPort() + "/processEvents";
+//        ServiceInstance serviceEngineInstance2 = loadBalancerClient.choose("engine-service2");
+//        String searchEngineUr2 = "http://" + serviceEngineInstance2.getHost() + ":" + serviceEngineInstance2.getPort() + "/processEvents";
+//        List<String> allUrls = Arrays.asList(searchEngineUrl, searchEngineUr1, searchEngineUr2);
+        List<String> allUrls = Arrays.asList(searchEngineUr0);
+        System.out.println("URL: " + searchEngineUr0);
+//        System.out.println("URL: " + searchEngineUr1);
 
 
         List<SiteData> data = requestData.getData();
         data.forEach(d -> System.out.println("data: " + d));
         for (int i = 0; i < data.size(); i++) {
-            System.out.println("here1");
             WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
-                    .uri(searchEngineUrl)
+                    .uri(allUrls.get(i))
                     .body(BodyInserters.fromObject(data.get(i)));
-            System.out.println("here2");
 
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
-            System.out.println("here3");
             resultObjectMono.subscribe(e -> {
+                System.out.println("Inside subscribe"+e);
                 tempDatastore.append(e);
                 if (data.size() == tempDatastore.getSize()) {
                     System.out.println("INTO for");
@@ -145,13 +153,22 @@ public class MainPageController {
                     sendMail(workbook, scrappingFormData.getEmail());
                 }
             });
-            System.out.println("here4");
         }
 
         return "redirect:/main/search";
     }
 
     public void sendMail(Workbook workbook, String email) {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream("C:\\Users\\Roman_Sobolevskyi\\Desktop\\newFile23234.xlsx");
+            workbook.write(out);
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//
+
     }
 
     @PostMapping("/searchOld")
@@ -223,22 +240,13 @@ public class MainPageController {
 
     public Workbook saveDataToExcel(TempDatastore datastores) {
         List<ResultObject> resultObjects = datastores.getResultObjects();
-
+        System.out.println("inside excel Working");
         Workbook xssfWorkbook = new XSSFWorkbook();
-        return new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
+        new ExcelConverter().fillWorkbook(xssfWorkbook, resultObjects);
+        new ExcelStyle().setStyle(xssfWorkbook);
+        return xssfWorkbook;
 
         //method();
     }
 
-    @PostMapping("/search111")
-    public String processInfoSecond(ServletRequest request) throws IOException {
-        //https://stackoverflow.com/questions/3831680/httpservletrequest-get-json-post-data
-        String jsonString = request.getReader().lines().collect(Collectors.joining());
-        ScrappingFormData scrappingFormData = new ObjectMapper().readValue(jsonString, ScrappingFormData.class);
-        System.out.println(scrappingFormData);
-        System.out.println(jsonString);
-
-
-        return "redirect:/main/search";
-    }
 }
