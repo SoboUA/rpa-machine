@@ -21,10 +21,24 @@ public class GetGastroliUaEventsAction implements IGetEventsAction {
     public List<IEvent> getEventsForPeriod(LocalDate from, LocalDate to) {
         WebDriver webDriver = new GastroliWebDriverProvider().getDriver();
         try {
-            GastroliUaHomePage gastroliPage = new GastroliUaHomePage(webDriver);
-            gastroliPage.setDataRange(from, to);
+            List<IEvent> list;
+            for (int i = 0; true; i++) {
 
-            return gastroliPage.setup().getEvents();
+                try {
+                    GastroliUaHomePage gastroliPage = new GastroliUaHomePage(webDriver);
+                    gastroliPage.setDataRange(from, to);
+
+                    list = gastroliPage.setup().getEvents();
+                    break;
+                } catch (Exception e) {
+                    System.out.println("On reattempt : " + e.getMessage());
+                    if (i == 2) {
+                        throw e;
+                    }
+                }
+            }
+
+            return list;
         } finally {
             webDriver.close();
         }

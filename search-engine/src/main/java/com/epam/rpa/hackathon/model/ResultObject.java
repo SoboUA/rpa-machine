@@ -13,6 +13,11 @@ public class ResultObject {
     public ResultObject() {
     }
 
+    public ResultObject(SiteData siteData, List<Event> eventList) {
+        this.siteData = siteData;
+        this.eventList = eventList;
+    }
+
     public SiteData getSiteData() {
         return siteData;
     }
