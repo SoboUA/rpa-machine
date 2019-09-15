@@ -2,6 +2,7 @@ package com.epam.rpa.hackathon.web.gastroli;
 
 import com.epam.rpa.hackathon.property.Property;
 import com.epam.rpa.hackathon.util.PropertyUtil;
+import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.gastroli.model.GastroliEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -62,8 +63,8 @@ public class GastroliUaHomePage extends GastroliUaPage {
         return this;
     }
 
-    public List<GastroliEvent> getCategorizedEvents() {
-        List<GastroliEvent> events = new ArrayList<>();
+    public List<IEvent> getCategorizedEvents() {
+        List<IEvent> events = new ArrayList<>();
         Actions actions = new Actions(driver);
 
         List<WebElement> filteredCategories = filterCategories(categories);

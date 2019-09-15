@@ -2,6 +2,7 @@ package com.epam.rpa.hackathon.web.ticketclub;
 
 import com.epam.rpa.hackathon.property.Property;
 import com.epam.rpa.hackathon.util.PropertyUtil;
+import com.epam.rpa.hackathon.web.IEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -103,8 +104,8 @@ public class TicketClubHomePage extends TicketClubPage {
         return this;
     }
 
-    public List<TicketClubEvent> getAllEventsFromSite() {
-        List<TicketClubEvent> events = new ArrayList<>();
+    public List<IEvent> getAllEventsFromSite() {
+        List<IEvent> events = new ArrayList<>();
         events.addAll(this.getMusicEvents());
         events.addAll(this.getTheatreEvents());
         events.addAll(this.getMovieEvents());

@@ -1,5 +1,6 @@
 package com.epam.rpa.hackathon.web.lvivonline;
 
+import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.lvivonline.model.LvivOnlineEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -24,8 +25,8 @@ public class AllEventsPage extends LvivOnlinePage {
         PageFactory.initElements(driver, this);
     }
 
-    public List<LvivOnlineEvent> getEventsFromAllPages() {
-        List<LvivOnlineEvent> eventsList = new ArrayList<>();
+    public List<IEvent> getEventsFromAllPages() {
+        List<IEvent> eventsList = new ArrayList<>();
         for (int i = 1; i < listOfPages.size() + 1; i++) {
             this.goToPage(i);
             eventsList.addAll(this.getAllEventsFromPage());

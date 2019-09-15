@@ -7,13 +7,14 @@ import com.epam.rpa.hackathon.web.IGetEventsAction;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component(SiteNames.LVIV_ONLINE)
 public class GetLvivOnlineEventsAction implements IGetEventsAction {
 
     @Override
-    public List<? extends IEvent> getEvents() {
+    public List<IEvent> getEvents() {
 
         WebDriver webDriver = new LvivOnlineWebDriverProvider().getDriver();
         try {
@@ -24,6 +25,11 @@ public class GetLvivOnlineEventsAction implements IGetEventsAction {
         } finally {
             webDriver.close();
         }
+    }
+
+    @Override
+    public List<IEvent> getEventsForPeriod(LocalDate dateFrom, LocalDate dateTo) {
+        return this.getEvents();
     }
 
 }

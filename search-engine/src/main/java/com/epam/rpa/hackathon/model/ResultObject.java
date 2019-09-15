@@ -1,12 +1,13 @@
 package com.epam.rpa.hackathon.model;
 
+import com.epam.rpa.hackathon.web.IEvent;
+
 import java.util.List;
 
 public class ResultObject {
 
     private SiteData siteData;
-    private List<Event> eventList;
-
+    private List<IEvent> eventList;
 
     public ResultObject() {
     }
@@ -19,11 +20,11 @@ public class ResultObject {
         this.siteData = siteData;
     }
 
-    public List<Event> getEventList() {
+    public List<IEvent> getEventList() {
         return eventList;
     }
 
-    public void setEventList(List<Event> eventList) {
+    public void setEventList(List<IEvent> eventList) {
         this.eventList = eventList;
     }
 
