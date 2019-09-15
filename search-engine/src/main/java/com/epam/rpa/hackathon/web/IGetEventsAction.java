@@ -16,4 +16,8 @@ public interface IGetEventsAction {
         return JsonUtil.toStringRepresentation(this.getEvents());
     }
 
+    default String getEventsJson(LocalDate dateFrom, LocalDate dateTo) {
+        return JsonUtil.toStringRepresentation(this.getEventsForPeriod(dateFrom, dateTo));
+    }
+
 }

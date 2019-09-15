@@ -36,7 +36,7 @@ public class MainController {
         IGetEventsAction eventsAction = eventsActionMap.get(siteToProcess);
 
 //        List<IEvent> eventList = eventsAction.getEventsForPeriod(siteData.getDateFrom(), siteData.getDateTo());
-        String eventsJson = eventsAction.getEventsJson();
+        String eventsJson = eventsAction.getEventsJson(siteData.getDateFrom(), siteData.getDateTo());
         List<Event> eventList = new EventConverter().convertToEventList(eventsJson);
 
 
