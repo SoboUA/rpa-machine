@@ -48,6 +48,9 @@ public class MainPageController {
     WebClient webClient;
 
     @Autowired
+    EmailController emailController;
+
+    @Autowired
     @LoadBalanced
     WebClient.Builder webClientBuilder;
 
@@ -148,9 +151,9 @@ public class MainPageController {
                     int size = tempDatastore.getResultObjects().size();
                     System.out.println("size: " + size);
 
-                   saveDataToExcel(tempDatastore);
+                    saveDataToExcel(tempDatastore);
 
-//                    sendMail(workbook, scrappingFormData.getEmail());
+                    emailController.sendMail(scrappingFormData.getEmail());
                 }
             });
         }
@@ -254,8 +257,6 @@ public class MainPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
 
     }
