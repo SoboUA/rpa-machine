@@ -1,7 +1,11 @@
 package com.rpa.controltower;
 
+import com.rpa.controltower.converter.excel.ExcelConverter;
+import com.rpa.controltower.converter.excel.ExcelStyle;
 import com.rpa.controltower.datastore.DatastoreFactory;
 import com.rpa.controltower.datastore.TempDatastore;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -9,6 +13,11 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 
 @SpringBootApplication
 @EnableEurekaClient
@@ -41,44 +50,22 @@ public class ControlTowerApplication {
         SpringApplication.run(ControlTowerApplication.class, args);
     }
 
-//    public static void main(String[] args) throws IOException {
-//        ResultObject resultObject = new ResultObject();
-//        ResultObject resultObject1 = new ResultObject();
-//        SiteData siteData = new SiteData();
-//        SiteData siteData2 = new SiteData();
-//        siteData.setSiteId("sheetName");
-//        resultObject.setSiteData(siteData);
-//        siteData2.setSiteId("sheetName22222");
-//        resultObject1.setSiteData(siteData2);
-//        List<IEvent> events = new ArrayList<>();
-//        IEvent event = new Event();
-//        event.setTitle("asdadas");
-//        event.setDescription("asdadas");
+
+//    public static void main(String[] args) throws IOException, IOException {
 //
-//
-//        IEvent event1 = new Event();
-//        event1.setTitle("asdaaaaaadas");
-//        event1.setDescription("asdaaaaadas");
-//        events.add(event);
-//        events.add(event1);
-//
-//        resultObject.setEventList(events);
-//        resultObject1.setEventList(events);
 //
 //        Workbook xssfWorkbook = new XSSFWorkbook();
 //        Workbook workbook = new ExcelConverter()
-//                .fillWorkbook(xssfWorkbook, Arrays.asList(resultObject, resultObject1));
+//                .fillWorkbook(xssfWorkbook, Arrays.asList());
 //
 //        new ExcelStyle().setStyle(workbook);
 //
-//
-//        FileOutputStream out = new FileOutputStream("C:\\Users\\Roman_Sobolevskyi\\Desktop\\newFile23234.xlsx");
+////        System.out.println(Class.getResource().getPath().toString());
+//        FileOutputStream out = new FileOutputStream("src\\main\\resources\\output\\file.xlsx");
 //
 //        workbook.write(out);
 //        out.close();
 //
 //
 //    }
-
-    ;
 }
