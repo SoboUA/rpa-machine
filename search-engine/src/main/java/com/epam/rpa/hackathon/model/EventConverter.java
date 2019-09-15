@@ -23,11 +23,14 @@ public class EventConverter {
         int numberOfEvents  = node.size();
 
         for (int i = 0; i < numberOfEvents; i++){
-            String name = node.findValuesAsText("title").get(i);
-            String description = node.findValuesAsText("description").get(i);
+            String category = node.findValuesAsText("category").get(i);
+            String title = node.findValuesAsText("title").get(i);
             String startDate = node.findValuesAsText("startDate").get(i);
+            String place = node.findValuesAsText("place").get(i);
+            String description = node.findValuesAsText("description").get(i);
+            String imageLink = node.findValuesAsText("imageLink").get(i);
 
-            Event event = new Event(name, description, startDate);
+            Event event = new Event(category, title, startDate,  place, description, imageLink);
             eventList.add(event);
         }
 

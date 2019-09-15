@@ -2,105 +2,95 @@ package com.epam.rpa.hackathon.model;
 
 public class Event implements IEvent{
 
-    private String name;
+    private String category;
+    private String title;
+    private String startDate;
+    private String place;
     private String description;
-    private String date;
-
-    public Event(String name, String description, String date) {
-        this.name = name;
-        this.description = description;
-        this.date = date;
-    }
-
-//    public Map<Integer, String> convertToMap() {
-//        List<String> listFields = Arrays.asList(name,description,date);
-//
-//
-//        return IntStream.range(0, listFields.size())
-//                .boxed()
-//                .filter(i -> StringUtils.isNotBlank(listFields.get(i)))
-//                .collect(Collectors.toMap(i -> i, listFields::get));
-//    }
+    private String imageLink;
 
     public Event() {
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setTitle(String name) {
-        this.name = name;
+    public Event(String category, String title, String startDate, String place, String description, String imageLink) {
+        this.category = category;
+        this.title = title;
+        this.startDate = startDate;
+        this.place = place;
+        this.description = description;
+        this.imageLink = imageLink;
     }
 
     @Override
     public String getCategory() {
-        return null;
+        return category;
     }
 
     @Override
     public void setCategory(String category) {
-
+        this.category = category;
     }
 
     @Override
     public String getTitle() {
-        return null;
+        return title;
     }
 
+    @Override
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     @Override
     public String getStartDate() {
-        return null;
+        return startDate;
     }
 
     @Override
     public void setStartDate(String startDate) {
-
+        this.startDate = startDate;
     }
 
     @Override
     public String getPlace() {
-        return null;
+        return place;
     }
 
     @Override
     public void setPlace(String place) {
-
+        this.place = place;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
 
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }
 
     @Override
-    public void setImageLink(String imageLink) {
-
+    public String getImageLink() {
+        return imageLink;
     }
 
     @Override
-    public String getImageLink() {
-        return null;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     @Override
     public String toString() {
-        return "Event{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", date='" + date + '\'' +
-                '}';
+        final StringBuilder sb = new StringBuilder("Event{");
+        sb.append("category='").append(category).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", startDate='").append(startDate).append('\'');
+        sb.append(", place='").append(place).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", imageLink='").append(imageLink).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }
