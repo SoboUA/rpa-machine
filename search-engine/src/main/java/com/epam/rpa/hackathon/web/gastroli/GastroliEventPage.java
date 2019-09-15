@@ -49,9 +49,7 @@ public class GastroliEventPage extends GastroliUaPage {
         String titleStr = title.getText();
         String dateStr = date.getText();
 
-        logger.warn("Before data filter : " + dateStr + " " + from + " " + to);
         if(!DataFilter.filter(from, to, dateStr)){
-            logger.warn("Is NULL");
             return null;
         }
 

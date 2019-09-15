@@ -10,7 +10,7 @@ public interface IGetEventsAction {
 
     List<? extends IEvent> getEvents();
 
-    List<? extends IEvent> getEventsForPeriod(LocalDate dateFrom, LocalDate dateTo);
+    List<IEvent> getEventsForPeriod(LocalDate dateFrom, LocalDate dateTo);
 
     //List<? extends IEvent> getEvents(String from, String to, );
 

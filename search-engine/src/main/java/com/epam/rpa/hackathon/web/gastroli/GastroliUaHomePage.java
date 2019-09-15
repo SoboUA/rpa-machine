@@ -2,7 +2,7 @@ package com.epam.rpa.hackathon.web.gastroli;
 
 import com.epam.rpa.hackathon.property.Property;
 import com.epam.rpa.hackathon.util.PropertyUtil;
-import com.epam.rpa.hackathon.web.gastroli.data.DataFilter;
+import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.gastroli.model.GastroliEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,7 +39,7 @@ public class GastroliUaHomePage extends GastroliUaPage {
         driver.get(homePageUrl);
     }
 
-    public List<GastroliEvent> getEvents() {
+    public List<IEvent> getEvents() {
         exploreAllEvents();
 
         List<String> links = scrapEventLinks();
@@ -58,10 +58,8 @@ public class GastroliUaHomePage extends GastroliUaPage {
         GastroliEvent event = null;
 
         try {
-            logger.warn("Started to process : " + link);
             driver.get(link);
             event = new GastroliEventPage(driver).returnEvent(getFrom(), getTo());
-            logger.warn("Event : " + event.toString());
         } catch (Exception e) {
             logger.warn(e.getMessage());
         }
@@ -100,11 +98,8 @@ public class GastroliUaHomePage extends GastroliUaPage {
 
         while (true) {
             if (++count > limit) {
-                logger.warn("Limit");
                 break;
             }
-
-            logger.warn("New More button press cycle");
 
             try {
                 WebElement more = driver.findElement(By.xpath("//div[contains(text(), 'Показано')]"));

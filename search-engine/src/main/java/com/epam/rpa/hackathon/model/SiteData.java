@@ -3,13 +3,11 @@ package com.epam.rpa.hackathon.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class SiteData {
 
-    private String site;
-    private boolean sendEmail;
-    private String simpleText;
+    private String siteId;
+    private String sendUrl;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFrom;
@@ -20,36 +18,27 @@ public class SiteData {
     public SiteData() {
     }
 
-    public SiteData(String site, boolean sendEmail, String simpleText, LocalDate dateFrom, LocalDate dateTo) {
-        this.site = site;
-        this.sendEmail = sendEmail;
-        this.simpleText = simpleText;
+    public SiteData(String siteId, String sendUrl, LocalDate dateFrom, LocalDate dateTo) {
+        this.siteId = siteId;
+        this.sendUrl = sendUrl;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
     }
 
-    public String getSite() {
-        return site;
+    public String getSiteId() {
+        return siteId;
     }
 
-    public void setSite(String site) {
-        this.site = site;
+    public void setSiteId(String siteId) {
+        this.siteId = siteId;
     }
 
-    public boolean isSendEmail() {
-        return sendEmail;
+    public String getSendUrl() {
+        return sendUrl;
     }
 
-    public void setSendEmail(boolean sendEmail) {
-        this.sendEmail = sendEmail;
-    }
-
-    public String getSimpleText() {
-        return simpleText;
-    }
-
-    public void setSimpleText(String simpleText) {
-        this.simpleText = simpleText;
+    public void setSendUrl(String sendUrl) {
+        this.sendUrl = sendUrl;
     }
 
     public LocalDate getDateFrom() {
@@ -71,9 +60,8 @@ public class SiteData {
     @Override
     public String toString() {
         return "SiteData{" +
-                "site='" + site + '\'' +
-                ", sendEmail=" + sendEmail +
-                ", simpleText='" + simpleText + '\'' +
+                "siteId='" + siteId + '\'' +
+                ", sendUrl='" + sendUrl + '\'' +
                 ", dateFrom=" + dateFrom +
                 ", dateTo=" + dateTo +
                 '}';

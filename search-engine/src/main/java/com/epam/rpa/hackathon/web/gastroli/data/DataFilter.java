@@ -1,6 +1,5 @@
 package com.epam.rpa.hackathon.web.gastroli.data;
 
-import com.epam.rpa.hackathon.web.gastroli.GastroliEventPage;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,35 +11,27 @@ import java.util.regex.Pattern;
 
 public class DataFilter {
 
-    private static Logger logger = LoggerFactory.getLogger(DataFilter.class);
-
-
     private static String dataRegex = "(\\d{2})\\s(\\D*)\\s(\\d{4}).*";
 
-    public static boolean filter(LocalDate from, LocalDate to, String recent){
+    public static boolean filter(LocalDate from, LocalDate to, String recent) {
 
         LocalDate rec = LocalDate.parse(convert(recent), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        if(rec.isAfter(from) && rec.isBefore(to)){
-            System.out.println("true");
+        if (rec.isAfter(from) && rec.isBefore(to)) {
             return true;
         }
 
-        return true;
+        return false;
     }
 
     public static String convert(String original) {
-        logger.warn("In converter");
         Pattern pattern = Pattern.compile(dataRegex);
         Matcher matcher = pattern.matcher(original);
 
         matcher.matches();
         String day = matcher.group(1);
-        System.out.println("Day : " + day);
         String month = getMonth(matcher.group(2));
-        System.out.println("Month : " + month);
         String year = matcher.group(3);
-        System.out.println("Year : " + year);
 
         return year + "-" + month + "-" + day;
     }

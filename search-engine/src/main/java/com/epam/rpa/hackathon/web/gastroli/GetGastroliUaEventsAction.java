@@ -19,7 +19,7 @@ public class GetGastroliUaEventsAction implements IGetEventsAction {
     }
 
     @Override
-    public List<? extends IEvent> getEventsForPeriod(LocalDate from, LocalDate to) {
+    public List<IEvent> getEventsForPeriod(LocalDate from, LocalDate to) {
         WebDriver webDriver = new GastroliWebDriverProvider().getDriver();
         try {
             GastroliUaHomePage gastroliPage = new GastroliUaHomePage(webDriver);
