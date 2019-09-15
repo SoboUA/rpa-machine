@@ -14,9 +14,15 @@ import java.util.List;
 public class GetGastroliUaEventsAction implements IGetEventsAction {
     @Override
     public List<IEvent> getEvents() {
+        return null;
+    }
+
+    @Override
+    public List<IEvent> getEventsForPeriod(LocalDate from, LocalDate to) {
         WebDriver webDriver = new GastroliWebDriverProvider().getDriver();
         try {
             GastroliUaHomePage gastroliPage = new GastroliUaHomePage(webDriver);
+            gastroliPage.setDataRange(from, to);
 
             return gastroliPage.setup().getEvents();
         } finally {
@@ -25,8 +31,7 @@ public class GetGastroliUaEventsAction implements IGetEventsAction {
     }
 
     @Override
-    public List<IEvent> getEventsForPeriod(LocalDate dateFrom, LocalDate dateTo) {
-        return null;
+    public String getEventsJson() {
+        return JsonUtil.toStringRepresentation(this.getEvents());
     }
-
 }

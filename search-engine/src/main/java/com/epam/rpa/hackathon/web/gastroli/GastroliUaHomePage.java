@@ -7,22 +7,16 @@ import com.epam.rpa.hackathon.web.gastroli.model.GastroliEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.thymeleaf.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.groupingBy;
 
 public class GastroliUaHomePage extends GastroliUaPage {
 
@@ -45,7 +39,7 @@ public class GastroliUaHomePage extends GastroliUaPage {
         driver.get(homePageUrl);
     }
 
-    public List<GastroliEvent> getEvents(){
+    public List<IEvent> getEvents() {
         exploreAllEvents();
 
         List<String> links = scrapEventLinks();
@@ -53,21 +47,20 @@ public class GastroliUaHomePage extends GastroliUaPage {
         System.out.println(links);
 
         return links.stream()
-                .limit(5)
+                .limit(10)
                 .map(this::processEvent)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
-    public GastroliEvent processEvent(String link){
+    public GastroliEvent processEvent(String link) {
 
         GastroliEvent event = null;
 
-        try{
+        try {
             driver.get(link);
-            event = new GastroliEventPage(driver).returnEvent();
-            logger.warn("Event : " + event.toString());
-        }catch (Exception e){
+            event = new GastroliEventPage(driver).returnEvent(getFrom(), getTo());
+        } catch (Exception e) {
             logger.warn(e.getMessage());
         }
 
@@ -90,7 +83,7 @@ public class GastroliUaHomePage extends GastroliUaPage {
         return this;
     }
 
-    public List<String> scrapEventLinks(){
+    public List<String> scrapEventLinks() {
         List<WebElement> allEvents = driver.findElements(By.xpath("//a[@class='list-item-image']"));
 
         return allEvents.stream()
@@ -105,11 +98,8 @@ public class GastroliUaHomePage extends GastroliUaPage {
 
         while (true) {
             if (++count > limit) {
-                logger.warn("Limit");
                 break;
             }
-
-            logger.warn("New More button press cycle");
 
             try {
                 WebElement more = driver.findElement(By.xpath("//div[contains(text(), 'Показано')]"));

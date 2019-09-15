@@ -3,10 +3,12 @@ package com.epam.rpa.hackathon.web.ticketclub;
 import com.epam.rpa.hackathon.property.SiteNames;
 import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.IGetEventsAction;
+import com.epam.rpa.hackathon.web.lvivonline.LvivOnlineHomePage;
 import org.openqa.selenium.WebDriver;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component(SiteNames.TICKET_CLUB)

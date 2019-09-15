@@ -1,12 +1,19 @@
 package com.epam.rpa.hackathon.web.gastroli;
 
+import com.epam.rpa.hackathon.web.gastroli.data.DataFilter;
 import com.epam.rpa.hackathon.web.gastroli.model.GastroliEvent;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.time.LocalDate;
 
 public class GastroliEventPage extends GastroliUaPage {
+
+    private Logger logger = LoggerFactory.getLogger(GastroliEventPage.class);
 
     @FindBy(xpath = "//span[@class='event-category-item']")
     private WebElement category;
@@ -34,13 +41,17 @@ public class GastroliEventPage extends GastroliUaPage {
         PageFactory.initElements(driver, this);
     }
 
-    public GastroliEvent returnEvent() {
+    public GastroliEvent returnEvent(LocalDate from, LocalDate to) {
 
         String locationLink = locationElement.getAttribute("href");
 
         String categoryStr = category.getText();
         String titleStr = title.getText();
         String dateStr = date.getText();
+
+        if(!DataFilter.filter(from, to, dateStr)){
+            return null;
+        }
 
         String descriptionStr = description.getText();
         String imageLink = image.getAttribute("src");

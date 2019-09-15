@@ -1,32 +1,22 @@
 package com.epam.rpa.hackathon.model;
 
-import com.epam.rpa.hackathon.property.SiteNames;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
 public class SiteData {
 
     private String siteId;
     private String siteUrl;
 
-
-    //    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFrom;
 
-    //    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTo;
 
     public SiteData() {
     }
-
-    //    public SiteData(String site, String simpleText, Date dateFrom, Date dateTo) {
-//        this.siteId = site;
-//        this.siteUrl = simpleText;
-//        this.dateFrom = dateFrom;
-//        this.dateTo = dateTo;
-//    }
 
     public SiteData(String siteId, String siteUrl, LocalDate dateFrom, LocalDate dateTo) {
         this.siteId = siteId;
