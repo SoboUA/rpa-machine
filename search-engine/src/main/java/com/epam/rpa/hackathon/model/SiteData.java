@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class SiteData {
 
     private String siteId;
-    private String sendUrl;
+    private String siteUrl;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateFrom;
@@ -18,9 +18,9 @@ public class SiteData {
     public SiteData() {
     }
 
-    public SiteData(String siteId, String sendUrl, LocalDate dateFrom, LocalDate dateTo) {
+    public SiteData(String siteId, String siteUrl, LocalDate dateFrom, LocalDate dateTo) {
         this.siteId = siteId;
-        this.sendUrl = sendUrl;
+        this.siteUrl = siteUrl;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
     }
@@ -33,12 +33,12 @@ public class SiteData {
         this.siteId = siteId;
     }
 
-    public String getSendUrl() {
-        return sendUrl;
+    public String getSiteUrl() {
+        return siteUrl;
     }
 
-    public void setSendUrl(String sendUrl) {
-        this.sendUrl = sendUrl;
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
     }
 
     public LocalDate getDateFrom() {
@@ -61,7 +61,7 @@ public class SiteData {
     public String toString() {
         return "SiteData{" +
                 "siteId='" + siteId + '\'' +
-                ", sendUrl='" + sendUrl + '\'' +
+                ", siteUrl='" + siteUrl + '\'' +
                 ", dateFrom=" + dateFrom +
                 ", dateTo=" + dateTo +
                 '}';
