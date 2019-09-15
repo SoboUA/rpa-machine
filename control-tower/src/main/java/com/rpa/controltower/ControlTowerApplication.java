@@ -46,26 +46,26 @@ public class ControlTowerApplication {
         return new RestTemplate();
     }
 
-    public static void main(String[] args) {
-        SpringApplication.run(ControlTowerApplication.class, args);
-    }
-
-
-//    public static void main(String[] args) throws IOException, IOException {
-//
-//
-//        Workbook xssfWorkbook = new XSSFWorkbook();
-//        Workbook workbook = new ExcelConverter()
-//                .fillWorkbook(xssfWorkbook, Arrays.asList());
-//
-//        new ExcelStyle().setStyle(workbook);
-//
-////        System.out.println(Class.getResource().getPath().toString());
-//        FileOutputStream out = new FileOutputStream("src\\main\\resources\\output\\file.xlsx");
-//
-//        workbook.write(out);
-//        out.close();
-//
-//
+//    public static void main(String[] args) {
+//        SpringApplication.run(ControlTowerApplication.class, args);
 //    }
+
+
+    public static void main(String[] args) throws IOException, IOException {
+//        SpringApplication.run(ControlTowerApplication.class, args);
+//
+        Workbook xssfWorkbook = new XSSFWorkbook();
+        Workbook workbook = new ExcelConverter()
+                .fillWorkbook(xssfWorkbook, Arrays.asList());
+
+        new ExcelStyle().setStyle(workbook);
+
+//        System.out.println(Class.getResource().getPath().toString());
+        FileOutputStream out = new FileOutputStream("file111.xlsx");
+
+        workbook.write(out);
+        out.close();
+//
+//
+    }
 }
