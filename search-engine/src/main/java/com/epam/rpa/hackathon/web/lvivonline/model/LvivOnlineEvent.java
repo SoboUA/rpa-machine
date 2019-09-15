@@ -12,6 +12,7 @@ public class LvivOnlineEvent implements IEvent {
     private String description;
     private String imageLink;
 
+
     public LvivOnlineEvent(String category, String title, String startDate, String place, String description, String imageLink) {
         this.category = category;
         this.title = title;
@@ -79,6 +80,19 @@ public class LvivOnlineEvent implements IEvent {
     @Override
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("LvivOnlineEvent{");
+        sb.append("category='").append(category).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", startDate='").append(startDate).append('\'');
+        sb.append(", place='").append(place).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", imageLink='").append(imageLink).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
 }

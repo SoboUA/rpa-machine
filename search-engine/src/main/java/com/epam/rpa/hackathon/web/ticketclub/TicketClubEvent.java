@@ -4,6 +4,7 @@ import com.epam.rpa.hackathon.web.IEvent;
 
 public class TicketClubEvent implements IEvent {
 
+
     private String category;
     private String title;
     private String startDate;
@@ -78,6 +79,19 @@ public class TicketClubEvent implements IEvent {
     @Override
     public String getImageLink() {
         return imageLink;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("TicketClubEvent{");
+        sb.append("category='").append(category).append('\'');
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", startDate='").append(startDate).append('\'');
+        sb.append(", place='").append(place).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append(", imageLink='").append(imageLink).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
 }

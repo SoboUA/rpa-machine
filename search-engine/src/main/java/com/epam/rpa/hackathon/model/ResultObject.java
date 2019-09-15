@@ -7,7 +7,8 @@ import java.util.List;
 public class ResultObject {
 
     private SiteData siteData;
-    private List<IEvent> eventList;
+//    private List<IEvent> eventList;
+    private List<Event> eventList;
 
     public ResultObject() {
     }
@@ -20,11 +21,11 @@ public class ResultObject {
         this.siteData = siteData;
     }
 
-    public List<IEvent> getEventList() {
+    public List<Event> getEventList() {
         return eventList;
     }
 
-    public void setEventList(List<IEvent> eventList) {
+    public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
     }
 

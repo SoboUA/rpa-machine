@@ -1,5 +1,7 @@
 package com.epam.rpa.hackathon.controller;
 
+import com.epam.rpa.hackathon.model.Event;
+import com.epam.rpa.hackathon.model.EventConverter;
 import com.epam.rpa.hackathon.model.ResultObject;
 import com.epam.rpa.hackathon.model.SiteData;
 import com.epam.rpa.hackathon.web.IEvent;
@@ -33,7 +35,10 @@ public class MainController {
         String siteToProcess = siteData.getSiteId();
         IGetEventsAction eventsAction = eventsActionMap.get(siteToProcess);
 
-        List<IEvent> eventList = eventsAction.getEventsForPeriod(siteData.getDateFrom(), siteData.getDateTo());
+//        List<IEvent> eventList = eventsAction.getEventsForPeriod(siteData.getDateFrom(), siteData.getDateTo());
+        String eventsJson = eventsAction.getEventsJson();
+        List<Event> eventList = new EventConverter().convertToEventList(eventsJson);
+
 
         System.out.println("eventList: " + eventList);
 
