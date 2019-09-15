@@ -8,8 +8,9 @@
 body {
     overflow-y: scroll;
     font-family: Roboto, sans-serif;
-    font-size: 16px;
+    font-size: 1.4vw;
     min-height: 100vh;
+    min-width: 880px;
     position: relative;
 }
 
@@ -104,6 +105,29 @@ header menu li a:hover, header .logo-container:hover {
     background: rgba(255, 255, 255, 0.4);
 }
 
+header .login-container {
+    margin-left: auto;
+    width: 15vw;
+    border-left: 2px solid hsla(0, 0%, 100%, .5);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+    color:#21d4fd;
+}
+
+header .login-container .login-icon {
+    font-size: 3.5em;
+}
+
+header .login-container .login-description {
+    font-size: 0.6em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: start;
+}
+
 .display-none {
     display: none !important;
 }
@@ -116,11 +140,11 @@ header menu li a:hover, header .logo-container:hover {
 
 main {
     color: #2e59c3;
-    padding: 40px 100px;
+    padding: 3vw 6vw;
 }
 
 main > div .main-card {
-    padding: 20px 40px;
+    padding: 1.5vw 3vw;
     background: rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.20), 0 2px 12px rgba(0, 0, 0, 0.16);
 }
@@ -161,9 +185,10 @@ main > div .main-card {
     justify-content: flex-start;
     align-items: center;
     padding: 0 4px;
-    height: 32px;
-    width: 146px;
+    height: 2.6vw;
+    width: 10vw;
     margin-left: 8px;
+    font-size: 0.9vw;
 }
 
 .scraping-container .main-card .site-container {
@@ -190,8 +215,8 @@ main > div .main-card {
     color: #333333;
     justify-content: center;
     align-items: center;
-    width: 160px;
-    height: 40px;
+    width: 16vw;
+    height: 3vw;
     cursor: default;
     user-select: none;
 }
@@ -204,8 +229,8 @@ main > div .main-card {
     justify-content: flex-start;
     align-items: center;
     padding: 0 4px;
-    width: 240px;
-    height: 32px;
+    width: 20vw;
+    height: 2.6vw;
 }
 
 .scraping-container .main-card .site-delete-button {
@@ -217,8 +242,8 @@ main > div .main-card {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 32px;
-    width: 120px;
+    height: 2.6vw;
+    width: 10vw;
     cursor: default;
     user-select: none;
 }
@@ -237,8 +262,8 @@ main > div .main-card {
     border-radius: 8px;
     display: flex;
     align-items: center;
-    padding: 0 16px;
-    height: 32px;
+    padding: 0 1.4vw;
+    height: 2.6vw;
     cursor: default;
     user-select: none;
 }
@@ -249,8 +274,8 @@ main > div .main-card {
     border-radius: 8px;
     display: flex;
     align-items: center;
-    padding: 0 20px;
-    height: 32px;
+    padding: 0 1.4vw;
+    height: 2.6vw;
     cursor: default;
     user-select: none;
 }
@@ -262,7 +287,7 @@ main > div .main-card {
 }
 
 .scraping-container .email-container {
-    width: 700px;
+    width: 55vw;
     display: flex;
 }
 
@@ -274,8 +299,8 @@ main > div .main-card {
     justify-content: flex-start;
     align-items: center;
     padding: 0 8px;
-    width: 260px;
-    height: 40px;
+    width: 20vw;
+    height: 3vw;
     font-size: 1.05em;
 }
 
@@ -288,8 +313,8 @@ main > div .main-card {
     color: #333333;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 140px;
+    height: 3vw;
+    width: 12vw;
     cursor: default;
     user-select: none;
 }
@@ -308,8 +333,8 @@ main > div .main-card {
     display: flex;
     color: #333333;
     align-items: center;
-    padding: 0 20px;
-    height: 40px;
+    padding: 0 1.6vw;
+    height: 3vw;
     cursor: default;
     user-select: none;
 }
@@ -340,7 +365,7 @@ footer .logo {
 }
 
 .footer-description{
-    margin-left: 40px;
+    margin-left: 2.2vw;
     font-size: 0.8em;
 }
 
@@ -376,140 +401,140 @@ footer .logo {
     background: rgba(149, 222, 255, 0.2);
 }
 
-@media only screen and (max-width: 1200px) {
-    body {
-        font-size: 10px;
-    }
-    main {
-        padding: 20px 60px;
-    }
-    main > div .main-card {
-         padding: 10px 20px;
-     }
-    .scraping-container .main-card h1 .scraping-date-container .scraping-date {
-        margin-left: 6px;
-    }
-    .scraping-container .main-card .site-container {
-         grid-gap: 16px;
-     }
+/*@media only screen and (max-width: 1200px) {*/
+/*    body {*/
+/*        font-size: 10px;*/
+/*    }*/
+/*    main {*/
+/*        padding: 20px 60px;*/
+/*    }*/
+/*    main > div .main-card {*/
+/*         padding: 10px 20px;*/
+/*     }*/
+/*    .scraping-container .main-card h1 .scraping-date-container .scraping-date {*/
+/*        margin-left: 6px;*/
+/*    }*/
+/*    .scraping-container .main-card .site-container {*/
+/*         grid-gap: 16px;*/
+/*     }*/
 
-    .scraping-container .main-card .site-select {
-        width: 220px;
-    }
+/*    .scraping-container .main-card .site-select {*/
+/*        width: 220px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-delete-button {
-        width: 100px;
-    }
+/*    .scraping-container .main-card .site-delete-button {*/
+/*        width: 100px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-tags-container {
-        margin: 0 10px;
-    }
+/*    .scraping-container .main-card .site-tags-container {*/
+/*        margin: 0 10px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-tags-container .site-tag {
-        padding: 0 12px;
-    }
+/*    .scraping-container .main-card .site-tags-container .site-tag {*/
+/*        padding: 0 12px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-tags-container .site-tag-all {
-        padding: 0 16px;
-    }
+/*    .scraping-container .main-card .site-tags-container .site-tag-all {*/
+/*        padding: 0 16px;*/
+/*    }*/
 
 
-    .scraping-container .email-container {
-        width: 600px;
-    }
+/*    .scraping-container .email-container {*/
+/*        width: 600px;*/
+/*    }*/
 
-    .scraping-container .email-container .email-input {
-        padding: 0 6px;
-        width: 240px;
-    }
+/*    .scraping-container .email-container .email-input {*/
+/*        padding: 0 6px;*/
+/*        width: 240px;*/
+/*    }*/
 
-    .scraping-container .email-container .email-send-button {
-        width: 120px;
-    }
+/*    .scraping-container .email-container .email-send-button {*/
+/*        width: 120px;*/
+/*    }*/
 
-    .scraping-container .email-container .email-file-types-container .email-file-type {
-        padding: 0 14px;
-    }
-}
+/*    .scraping-container .email-container .email-file-types-container .email-file-type {*/
+/*        padding: 0 20px;*/
+/*    }*/
+/*}*/
 
-@media only screen and (min-width: 1600px) {
-    body {
-        font-size: 22px;
-    }
-    main {
-        padding: 80px 140px;
-    }
-    main > div .main-card {
-        padding: 40px 80px;
-    }
-    .scraping-container .main-card h1 .scraping-date-container .scraping-date {
-        padding: 0 8px;
-        height: 40px;
-        width: 160px;
-        margin-left: 10px;
-    }
-    .scraping-container .main-card .site-container {
-         grid-gap: 40px;
-     }
+/*@media only screen and (min-width: 1600px) {*/
+/*    body {*/
+/*        font-size: 22px;*/
+/*    }*/
+/*    main {*/
+/*        padding: 80px 140px;*/
+/*    }*/
+/*    main > div .main-card {*/
+/*        padding: 40px 80px;*/
+/*    }*/
+/*    .scraping-container .main-card h1 .scraping-date-container .scraping-date {*/
+/*        padding: 0 8px;*/
+/*        height: 40px;*/
+/*        width: 160px;*/
+/*        margin-left: 10px;*/
+/*    }*/
+/*    .scraping-container .main-card .site-container {*/
+/*         grid-gap: 40px;*/
+/*     }*/
 
-    .scraping-container .main-card .site-container {
-        display: grid;
-        grid-gap: 20px;
-    }
+/*    .scraping-container .main-card .site-container {*/
+/*        display: grid;*/
+/*        grid-gap: 20px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-add {
-        width: 180px;
-        height: 56px;
-    }
+/*    .scraping-container .main-card .site-add {*/
+/*        width: 180px;*/
+/*        height: 56px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-select {
-        padding: 0 8px;
-        width: 280px;
-        height: 40px;
-    }
+/*    .scraping-container .main-card .site-select {*/
+/*        padding: 0 8px;*/
+/*        width: 280px;*/
+/*        height: 40px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-delete-button {
-        height: 40px;
-        width: 160px;
-    }
+/*    .scraping-container .main-card .site-delete-button {*/
+/*        height: 40px;*/
+/*        width: 160px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-tags-container {
-        margin: 0 36px;
-    }
+/*    .scraping-container .main-card .site-tags-container {*/
+/*        margin: 0 36px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-tags-container .site-tag {
-        padding: 0 20px;
-        height: 40px;
-    }
+/*    .scraping-container .main-card .site-tags-container .site-tag {*/
+/*        padding: 0 20px;*/
+/*        height: 40px;*/
+/*    }*/
 
-    .scraping-container .main-card .site-tags-container .site-tag-all {
-        padding: 0 26px;
-        height: 40px;
-    }
+/*    .scraping-container .main-card .site-tags-container .site-tag-all {*/
+/*        padding: 0 26px;*/
+/*        height: 40px;*/
+/*    }*/
 
-    .scraping-container .email-container {
-        width: 1100px;
-    }
+/*    .scraping-container .email-container {*/
+/*        width: 1100px;*/
+/*    }*/
 
-    .scraping-container .email-container .email-input {
-        padding: 0 12px;
-        width: 340px;
-        height: 56px;
-    }
+/*    .scraping-container .email-container .email-input {*/
+/*        padding: 0 12px;*/
+/*        width: 340px;*/
+/*        height: 56px;*/
+/*    }*/
 
-    .scraping-container .email-container .email-send-button {
-        height: 56px;
-        width: 200px;
-    }
+/*    .scraping-container .email-container .email-send-button {*/
+/*        height: 56px;*/
+/*        width: 200px;*/
+/*    }*/
 
-    .scraping-container .email-container .email-file-types-container .email-file-type {
-        padding: 0 40px;
-        height: 56px;
-    }
+/*    .scraping-container .email-container .email-file-types-container .email-file-type {*/
+/*        padding: 0 40px;*/
+/*        height: 56px;*/
+/*    }*/
 
-    .footer-description{
-        margin-left: 80px;
-        font-size: 0.8em;
-    }
+/*    .footer-description{*/
+/*        margin-left: 80px;*/
+/*        font-size: 0.8em;*/
+/*    }*/
 
-}
+/*}*/
