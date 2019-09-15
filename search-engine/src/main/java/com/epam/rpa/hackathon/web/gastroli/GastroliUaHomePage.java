@@ -2,6 +2,7 @@ package com.epam.rpa.hackathon.web.gastroli;
 
 import com.epam.rpa.hackathon.property.Property;
 import com.epam.rpa.hackathon.util.PropertyUtil;
+import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.gastroli.model.GastroliEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

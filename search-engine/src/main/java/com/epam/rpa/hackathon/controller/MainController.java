@@ -1,9 +1,8 @@
 package com.epam.rpa.hackathon.controller;
 
-import com.epam.rpa.hackathon.model.EventConverter;
-import com.epam.rpa.hackathon.model.Event;
 import com.epam.rpa.hackathon.model.ResultObject;
 import com.epam.rpa.hackathon.model.SiteData;
+import com.epam.rpa.hackathon.web.IEvent;
 import com.epam.rpa.hackathon.web.IGetEventsAction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -28,12 +30,10 @@ public class MainController {
     public ResultObject processEvents(@RequestBody SiteData siteData) {
         System.out.println("siteData: " + siteData);
 
-        String siteToProcess = siteData.getSite();
+        String siteToProcess = siteData.getSiteId();
         IGetEventsAction eventsAction = eventsActionMap.get(siteToProcess);
 
-        String eventsJson = eventsAction.getEventsJson();
-
-        List<Event> eventList = new EventConverter().convertToEventList(eventsJson);
+        List<IEvent> eventList = eventsAction.getEventsForPeriod(siteData.getDateFrom(), siteData.getDateTo());
 
         System.out.println("eventList: " + eventList);
 
