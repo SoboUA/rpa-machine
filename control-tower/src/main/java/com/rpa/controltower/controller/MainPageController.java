@@ -122,23 +122,18 @@ public class MainPageController {
 
         //Load Balancing
 
-        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service0");
-        String searchEngineUr0 = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
-        ServiceInstance serviceEngineInstance1 = loadBalancerClient.choose("engine-service1");
-        String searchEngineUr1 = serviceEngineInstance1 != null ? "http://" + serviceEngineInstance1.getHost() + ":" + serviceEngineInstance1.getPort() + "/processEvents" : searchEngineUr0;
-        ServiceInstance serviceEngineInstance2 = loadBalancerClient.choose("engine-service2");
-        String searchEngineUr2 = serviceEngineInstance2 != null ? "http://" + serviceEngineInstance2.getHost() + ":" + serviceEngineInstance2.getPort() + "/processEvents" : searchEngineUr1;
-        List<String> allUrls = Arrays.asList(searchEngineUr0, searchEngineUr1, searchEngineUr2);
-        System.out.println("URL: " + searchEngineUr0);
-        System.out.println("URL: " + searchEngineUr1);
-        System.out.println("URL: " + searchEngineUr2);
+        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service");
+        String searchEngineUr = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
+
+        System.out.println("URL: " + searchEngineUr);
+
 
 
         List<SiteData> data = requestData.getData();
         data.forEach(d -> System.out.println("data: " + d));
         for (int i = 0; i < data.size(); i++) {
             WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
-                    .uri(allUrls.get(i))
+                    .uri(searchEngineUr)
                     .body(BodyInserters.fromObject(data.get(i)));
 
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
@@ -165,7 +160,7 @@ public class MainPageController {
         System.out.println("Sending Email");
         FileOutputStream out = null;
         try {
-            out = new FileOutputStream("C:\\Users\\Roman_Sobolevskyi\\Desktop\\newFile23234.xlsx");
+            out = new FileOutputStream("newFile23234.xlsx");
             workbook.write(out);
             out.close();
         } catch (IOException e) {

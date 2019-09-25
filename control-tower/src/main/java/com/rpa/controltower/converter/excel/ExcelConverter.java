@@ -1,12 +1,11 @@
 package com.rpa.controltower.converter.excel;
 
-import com.rpa.controltower.model.result.IEvent;
 import com.rpa.controltower.model.ResultObject;
+import com.rpa.controltower.model.result.IEvent;
 import com.rpa.controltower.util.ExcelUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import java.util.Arrays;
@@ -17,9 +16,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ExcelConverter {
+
     public Workbook fillWorkbook(Workbook workbook, List<ResultObject> orders) {
         for (int i = 0; i < orders.size(); i++) {
             ResultObject resultObject = orders.get(i);
+
+            //Hardcoded sites and colors
             HashMap<String, String> sheetNames = new HashMap<>();
             sheetNames.put("1", "Lviv Online");
             sheetNames.put("2", "Gastroli");
@@ -28,6 +30,7 @@ public class ExcelConverter {
             sheetColor.put("1", 10);
             sheetColor.put("2", 17);
             sheetColor.put("4", 20);
+
             Sheet workingSheet = workbook.createSheet(sheetNames.get(resultObject.getSiteData().getSiteId()));
 
 

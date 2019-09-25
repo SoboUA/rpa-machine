@@ -1,22 +1,15 @@
 package com.rpa.controltower.controller;
 
-import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.mail.util.ByteArrayDataSource;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 @RestController
 public class EmailController {
@@ -32,21 +25,20 @@ public class EmailController {
             helper.setTo("Roman_Sobolevskyi@epam.com");
             helper.setText("How are you?");
             helper.setSubject("Hi");
-            System.out.println("we are here" );
+            System.out.println("we are here");
             FileSystemResource fileSystemResource = new FileSystemResource(new File("src\\main\\resources\\output\\file.xlsx"));
 //            FileSystemResource fileSystemResource = new FileSystemResource(new File("file.xlsx"));
 //            ClassPathResource fileSystemResource = new ClassPathResource("src\\main\\resources\\output\\file.xlsx");
             helper.addAttachment("file.xlsx", fileSystemResource, "application/octet-stream;");
 //            helper.addAttachment("file", fileSystemResource);
-            System.out.println("we are here222" );
+            System.out.println("we are here222");
 
             javaMailSender.send(message);
-            System.out.println("mesage sent22" );
+            System.out.println("mesage sent22");
         } catch (MessagingException e) {
             e.printStackTrace();
             System.out.println("exceptio");
         }
-
 
 
         return "11";
@@ -58,23 +50,22 @@ public class EmailController {
         try {
             helper = new MimeMessageHelper(message, true);
             helper.setTo(to);
-            helper.setText("How are you?");
-            helper.setSubject("Hi");
-            System.out.println("we are here" );
+            helper.setText("See attached");
+            helper.setSubject("Result data");
+            System.out.println("we are here");
             FileSystemResource fileSystemResource = new FileSystemResource(new File("src\\main\\resources\\output\\file.xlsx"));
 //            FileSystemResource fileSystemResource = new FileSystemResource(new File("file.xlsx"));
 //            ClassPathResource fileSystemResource = new ClassPathResource("src\\main\\resources\\output\\file.xlsx");
             helper.addAttachment("file.xlsx", fileSystemResource, "application/octet-stream;");
 //            helper.addAttachment("file", fileSystemResource);
-            System.out.println("we are here222" );
+            System.out.println("we are here222");
 
             javaMailSender.send(message);
-            System.out.println("mesage sent22" );
+            System.out.println("mesage sent22");
         } catch (MessagingException e) {
             e.printStackTrace();
             System.out.println("exceptio");
         }
-
 
 
         return "11";
