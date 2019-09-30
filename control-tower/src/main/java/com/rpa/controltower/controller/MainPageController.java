@@ -112,6 +112,7 @@ public class MainPageController {
         //https://stackoverflow.com/questions/3831680/httpservletrequest-get-json-post-data
         String jsonString = request.getReader().lines().collect(Collectors.joining());
         ScrappingFormData scrappingFormData = new ObjectMapper().readValue(jsonString, ScrappingFormData.class);
+
         System.out.println(scrappingFormData);
         System.out.println(jsonString);
 
