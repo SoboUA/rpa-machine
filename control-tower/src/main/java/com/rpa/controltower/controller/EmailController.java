@@ -44,6 +44,12 @@ public class EmailController {
         return "11";
     }
 
+    @GetMapping("/send")
+    public String sendEmail() {
+        sendMail();
+        return "hello";
+    }
+
     public String sendMail(String to) {
         MimeMessage message = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = null;
@@ -52,28 +58,17 @@ public class EmailController {
             helper.setTo(to);
             helper.setText("See attached");
             helper.setSubject("Result data");
-            System.out.println("we are here");
             FileSystemResource fileSystemResource = new FileSystemResource(new File("src\\main\\resources\\output\\file.xlsx"));
-//            FileSystemResource fileSystemResource = new FileSystemResource(new File("file.xlsx"));
-//            ClassPathResource fileSystemResource = new ClassPathResource("src\\main\\resources\\output\\file.xlsx");
             helper.addAttachment("file.xlsx", fileSystemResource, "application/octet-stream;");
-//            helper.addAttachment("file", fileSystemResource);
-            System.out.println("we are here222");
 
             javaMailSender.send(message);
             System.out.println("mesage sent22");
         } catch (MessagingException e) {
             e.printStackTrace();
-            System.out.println("exceptio");
         }
 
-
-        return "11";
+        return "done";
     }
 
-    @GetMapping("/send")
-    public String sendEmail() {
-        sendMail();
-        return "hello";
-    }
+
 }

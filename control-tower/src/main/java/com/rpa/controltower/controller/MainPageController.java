@@ -123,18 +123,31 @@ public class MainPageController {
 
         //Load Balancing
 
-        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service");
-        String searchEngineUr = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
+//        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service");
+//        String searchEngineUr = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
+//
+//        System.out.println("URL: " + searchEngineUr);
 
-        System.out.println("URL: " + searchEngineUr);
+        //////////////////
 
+        ServiceInstance serviceEngineInstance = loadBalancerClient.choose("engine-service0");
+        String searchEngineUr0 = "http://" + serviceEngineInstance.getHost() + ":" + serviceEngineInstance.getPort() + "/processEvents";
+        ServiceInstance serviceEngineInstance1 = loadBalancerClient.choose("engine-service1");
+        String searchEngineUr1 = serviceEngineInstance1 != null ? "http://" + serviceEngineInstance1.getHost() + ":" + serviceEngineInstance1.getPort() + "/processEvents" : searchEngineUr0;
+//        ServiceInstance serviceEngineInstance2 = loadBalancerClient.choose("engine-service2");
+//        String searchEngineUr2 = serviceEngineInstance2 != null ? "http://" + serviceEngineInstance2.getHost() + ":" + serviceEngineInstance2.getPort() + "/processEvents" : searchEngineUr1;
+        List<String> allUrls = Arrays.asList(searchEngineUr0, searchEngineUr1);
+        System.out.println("URL: " + searchEngineUr0);
+        System.out.println("URL: " + searchEngineUr1);
+//        System.out.println("URL: " + searchEngineUr2);
 
 
         List<SiteData> data = requestData.getData();
         data.forEach(d -> System.out.println("data: " + d));
         for (int i = 0; i < data.size(); i++) {
             WebClient.RequestHeadersSpec requestBodySpec = webClient.method(HttpMethod.POST)
-                    .uri(searchEngineUr)
+//                    .uri(searchEngineUr)
+                    .uri(allUrls.get(i))
                     .body(BodyInserters.fromObject(data.get(i)));
 
             Mono<ResultObject> resultObjectMono = requestBodySpec.retrieve().bodyToMono(ResultObject.class);
