@@ -137,6 +137,7 @@ public class MainPageController {
 //        ServiceInstance serviceEngineInstance2 = loadBalancerClient.choose("engine-service2");
 //        String searchEngineUr2 = serviceEngineInstance2 != null ? "http://" + serviceEngineInstance2.getHost() + ":" + serviceEngineInstance2.getPort() + "/processEvents" : searchEngineUr1;
         List<String> allUrls = Arrays.asList(searchEngineUr0, searchEngineUr1);
+//        List<String> allUrls = Arrays.asList(searchEngineUr0);
         System.out.println("URL: " + searchEngineUr0);
         System.out.println("URL: " + searchEngineUr1);
 //        System.out.println("URL: " + searchEngineUr2);
